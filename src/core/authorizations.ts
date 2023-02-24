@@ -7,8 +7,6 @@ const ROLES_PATH = "https:nextApp/roles";
 export const checkPageAuthorization = async (ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>, acceptedRoles: string[]) => {
   const session = await getSession(ctx.req, ctx.res);
   const userRoles: string[] = session?.user?.[ROLES_PATH];
-  console.log('$$alex roles:', userRoles);
-  console.log('$$alex roles:', acceptedRoles);
   return userRoles.some(role => acceptedRoles.includes(role))
 }
 
