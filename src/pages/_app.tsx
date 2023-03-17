@@ -1,6 +1,9 @@
 import type { AppProps } from "next/app";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { QueryClientProvider, QueryClient } from "react-query";
+import "@/styles/globals.css";
+import { createMuiTheme, ThemeProvider } from "@mui/material";
+import theme from "@/styles/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -15,7 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <Component {...pageProps} />
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </UserProvider>
     </QueryClientProvider>
   );

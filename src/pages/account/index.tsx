@@ -1,25 +1,19 @@
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+  getAccessToken,
+  getSession,
+  withPageAuthRequired,
+} from "@auth0/nextjs-auth0";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-import {
-  checkPageAuthorization,
-  checkSessionValid,
-  redirectToErrorPage,
-  redirectToLoginPage,
-} from "@/core/authorizations";
-
-import { Admin } from "@/features/Admin";
 import { Navigation } from "@/core/components/Navigation";
+import { Account } from "@/features/Account";
+import { checkSessionValid, redirectToLoginPage } from "@/core/authorizations";
 
 type Props = {
   isLogged: boolean;
 };
 
-export default function AdminPage(
+export default function AccountPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const { isLogged } = props;
@@ -27,7 +21,7 @@ export default function AdminPage(
   return (
     <>
       <Navigation isLogged={isLogged} />
-      <Admin />
+      <Account />
     </>
   );
 }
@@ -41,13 +35,6 @@ export const getServerSideProps: GetServerSideProps<Props> =
       if (!isLogged) {
         return redirectToLoginPage();
       }
-
-      const isAuthorized = await checkPageAuthorization(session, [
-        "superadmin",
-        "admin",
-      ]);
-
-      if (!isAuthorized) return redirectToErrorPage();
 
       return { props: { isLogged } };
     },

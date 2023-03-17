@@ -8,7 +8,8 @@ const axiosInstance = axios.create({
 // Add Authorization header to the axios instance only if token exists
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const returnObject = await axios.get('/api/auth/token')
+    const returnObject = await axios.get('/api/auth/token');
+
     const accessToken = returnObject?.data?.accessToken;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;

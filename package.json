@@ -6,21 +6,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc -p . --noEmit"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^2.2.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^2.9.11",
+    "@mui/material": "^5.11.13",
     "@next/font": "13.1.6",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "axios": "^1.3.4",
+    "clsx": "^1.2.1",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.6",
     "react-query": "^3.39.3",
-    "typescript": "4.9.5"
+    "react-select": "^5.7.0",
+    "typescript": "4.9.5",
+    "yup": "^1.0.2"
   }
 }
