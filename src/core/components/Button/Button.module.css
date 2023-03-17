@@ -18,7 +18,12 @@ button.btn:hover, button.btn:active {
 button.btn:disabled:not(.loading) {
   cursor: not-allowed;
   opacity: 0.5;
+}
 
+.btn-loading, 
+button.btn-loading {
+  cursor: wait !important;
+  overflow: hidden;
 }
 
 .btn.btn-xs, 
@@ -56,7 +61,7 @@ button.btn.btn-lg {
 /* primary raised */
 .btn.btn-primary.btn-raised, 
 button.btn.btn-primary.btn-raised {
-  color: var(--neutral-color-100);
+  color: var(--neutral-color-100) !important;
   background: var(--primary-color-500);
   border: 1px solid var(--primary-color-500);
   box-shadow: 0 1px 2px 0 rgba(32, 13, 242, 0.18), 0 0 8px 0 rgba(32, 13, 242, 0.12);

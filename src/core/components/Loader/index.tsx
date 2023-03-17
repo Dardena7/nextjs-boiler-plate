@@ -17,5 +17,9 @@ const getStyles = (size: LoaderSize) => {
 export const Loader: FC<Props> = (props) => {
   const { size } = props;
 
-  return <div className={clsx(getStyles(size))}></div>;
+  return (
+    <div className="layout-column layout-align-center-center absolute-centered">
+      <div className={clsx(getStyles(size))}></div>
+    </div>
+  );
 };

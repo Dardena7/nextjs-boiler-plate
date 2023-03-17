@@ -61,6 +61,8 @@ export const EditUserInformation: FC<Props> = (props) => {
           onClick={() => {
             setEditUser(false);
           }}
+          disabled={isLoadingUpdateUser}
+          loading={isLoadingUpdateUser}
         />
         <Button
           label="Save information"
@@ -69,6 +71,7 @@ export const EditUserInformation: FC<Props> = (props) => {
           size="sm"
           onClick={() => handleUpdateUser()}
           disabled={!formState.isValid || isLoadingUpdateUser}
+          loading={isLoadingUpdateUser}
         />
       </div>
     </div>
