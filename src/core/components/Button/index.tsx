@@ -35,7 +35,6 @@ const getCSSClasses = (
       `btn-${variant}`,
       "btn-ripple",
     ];
-  console.log("$$alex", classNames);
   return getStylesCSSClasses(classNames, styles);
 };
 

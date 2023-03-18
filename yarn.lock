@@ -770,6 +770,11 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
+camelize-ts@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/camelize-ts/-/camelize-ts-2.3.0.tgz#8c9b080f647c7055835c1bf36e4b062d34416df3"
+  integrity sha512-rfAXKVm6+mt8r/NBXZl6MS/RlZMoIRGDVp3d7XdKnzhStyiCjLQ+B35SwMRtOl8WaBi2uLp7OBHpoztM1eXIZw==
+
 caniuse-lite@^1.0.30001406:
   version "1.0.30001457"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001457.tgz#6af34bb5d720074e2099432aa522c21555a18301"
@@ -1936,6 +1941,11 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
+lodash.snakecase@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
+  integrity sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==
+
 loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -2480,6 +2490,13 @@ slash@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
+
+snakify-ts@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/snakify-ts/-/snakify-ts-2.1.0.tgz#18f2a0dd9555a32353814706986ae0cab1aace3f"
+  integrity sha512-NRsIy5qchYXvCcAjYPGjkvvW+VI2EYWHD9/FcbBvowIK+XMGbZ+Hj08qAB+8kG8WqtBYSszHsQJ3Z4js3PxU+A==
+  dependencies:
+    lodash.snakecase "^4.1.1"
 
 source-map-js@^1.0.2:
   version "1.0.2"

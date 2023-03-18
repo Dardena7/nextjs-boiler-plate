@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import camelize from 'camelize-ts';
+import snakify from 'snakify-ts';
 
 // Create new instance and configure
 const axiosInstance = axios.create({
@@ -14,6 +16,7 @@ axiosInstance.interceptors.request.use(
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+    config.data = snakify(config.data)
     return config;
   },
   (error) => {
@@ -26,6 +29,7 @@ axiosInstance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    response.data = camelize(response.data);
     return response;
   },
   function (error) {
@@ -43,3 +47,4 @@ export const api = {
   patch: (url: string, data: unknown, config?: AxiosRequestConfig) => axiosInstance.patch(url, data, config),
   head: (url: string) => axiosInstance.head(url),
 };
+
