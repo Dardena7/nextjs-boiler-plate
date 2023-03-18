@@ -1,6 +1,6 @@
 import { Session } from "@auth0/nextjs-auth0";
 
-const ROLES_PATH = "https:nextApp/roles";
+const ROLES_PATH = "http://boiler-plate-api.com/roles";
 
 export const checkPageAuthorization = async (session: Session | null | undefined, acceptedRoles: string[]) => {
   const userRoles: string[] = session?.user?.[ROLES_PATH] || [];

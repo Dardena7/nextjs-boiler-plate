@@ -13,7 +13,7 @@ export const Admin = () => {
         {users?.map((user: User, index: number) => {
           return (
             <li key={`user-${index}`}>
-              {`${user.firstname} ${user.lastname}`}
+              {`${user.email} ${user.firstname} ${user.lastname}`}
             </li>
           );
         })}
