@@ -1,21 +1,14 @@
-import { checkSessionValid } from "@/core/authorizations";
 import { Navigation } from "@/core/components/Navigation";
-import { getSession } from "@auth0/nextjs-auth0";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps } from "next";
 
-type Props = {
-  isLogged: boolean;
-};
+type Props = {};
 
-export default function HomePage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
-  const { isLogged } = props;
-
+export default function HomePage() {
   return (
     <>
-      <Navigation isLogged={isLogged} />
+      <Navigation />
       <main>
         <h1>Home Page</h1>
       </main>
@@ -24,8 +17,11 @@ export default function HomePage(
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
-  const session = await getSession(ctx.req, ctx.res);
-  const isLogged = checkSessionValid(session);
+  const { locale } = ctx;
 
-  return { props: { isLogged } };
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || "en", ["common", "pages"])),
+    },
+  };
 };

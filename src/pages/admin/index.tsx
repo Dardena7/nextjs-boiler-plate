@@ -1,9 +1,5 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import {
   checkPageAuthorization,
@@ -15,40 +11,37 @@ import {
 import { Admin } from "@/features/Admin";
 import { Navigation } from "@/core/components/Navigation";
 
-type Props = {
-  isLogged: boolean;
-};
-
-export default function AdminPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
-  const { isLogged } = props;
-
+export default function AdminPage() {
   return (
     <>
-      <Navigation isLogged={isLogged} />
+      <Navigation />
       <Admin />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> =
-  withPageAuthRequired({
-    async getServerSideProps(ctx) {
-      const session = await getSession(ctx.req, ctx.res);
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(ctx) {
+    const session = await getSession(ctx.req, ctx.res);
 
-      const isLogged = checkSessionValid(session);
-      if (!isLogged) {
-        return redirectToLoginPage();
-      }
+    const isLogged = checkSessionValid(session);
+    if (!isLogged) {
+      return redirectToLoginPage();
+    }
 
-      const isAuthorized = await checkPageAuthorization(session, [
-        "superadmin",
-        "admin",
-      ]);
+    const isAuthorized = await checkPageAuthorization(session, [
+      "superadmin",
+      "admin",
+    ]);
 
-      if (!isAuthorized) return redirectToErrorPage();
+    if (!isAuthorized) return redirectToErrorPage();
 
-      return { props: { isLogged } };
-    },
-  });
+    const { locale } = ctx;
+
+    return {
+      props: {
+        ...(await serverSideTranslations(locale || "en", ["common", "pages"])),
+      },
+    };
+  },
+});

@@ -1,0 +1,18 @@
+{
+  "account": {
+    "title": "Account",
+    "information": "Information",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "emailAdress": "Email adress",
+    "editMyInfo": "Edit my information",
+    "acceptTermsAndConditions": "I accept terms and conditions *",
+    "termsDescription": "* I agree to the processing and storage of my personal data in accordance with the GDPR regulations. I understand that my data may be used for the purposes of providing me with the requested services and that I have the right to access and amend my personal information at any time."
+  },
+  "admin": {
+    "title": "Admin"
+  },
+  "home": {
+    "title": "Home"
+  }
+}

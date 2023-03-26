@@ -2,10 +2,11 @@ import type { AppProps } from "next/app";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { QueryClientProvider, QueryClient } from "react-query";
 import "@/styles/globals.css";
-import { createMuiTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import theme from "@/styles/theme";
+import { appWithTranslation } from "next-i18next";
 
-export default function App({ Component, pageProps }: AppProps) {
+export const App = ({ Component, pageProps }: AppProps) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -24,4 +25,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </UserProvider>
     </QueryClientProvider>
   );
-}
+};
+
+export default appWithTranslation(App);

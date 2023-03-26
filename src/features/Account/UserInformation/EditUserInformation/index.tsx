@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TermsAndConditionsQuestion } from "@/core/forms/user-form/questions/TermsAndConditionsQuestion";
 import { TextQuestion } from "@/core/forms/user-form/questions/TextQuestion";
 import { getDefaultValues } from "@/core/forms/user-form/utils";
+import { useTranslation } from "next-i18next";
 
 import type { FC } from "react";
 import type { User } from "@/core/repos/types/generic";
@@ -20,6 +21,8 @@ type Props = {
 
 export const EditUserInformation: FC<Props> = (props) => {
   const { user, setEditUser, className } = props;
+
+  const { t } = useTranslation();
 
   const { getValues, formState, ...methods } = useForm<UserForm>({
     mode: "onChange",
@@ -46,15 +49,23 @@ export const EditUserInformation: FC<Props> = (props) => {
   return (
     <div className={clsx(className)}>
       <FormProvider formState={formState} getValues={getValues} {...methods}>
-        <TextQuestion name="firstname" label="Firstname" className="mb-16" />
-        <TextQuestion name="lastname" label="Lastname" className="mb-16" />
+        <TextQuestion
+          name="firstname"
+          label={t("pages:account.firstname")}
+          className="mb-16"
+        />
+        <TextQuestion
+          name="lastname"
+          label={t("pages:account.lastname")}
+          className="mb-16"
+        />
         {!user.termsAndConditions && <TermsAndConditionsQuestion />}
       </FormProvider>
 
       <div className="mt-32 layout-row layout-align-end">
         <Button
           className="mr-8"
-          label="Cancel"
+          label={t("common:cancel")}
           style="secondary"
           variant="light"
           size="sm"
@@ -65,7 +76,7 @@ export const EditUserInformation: FC<Props> = (props) => {
           loading={isLoadingUpdateUser}
         />
         <Button
-          label="Save information"
+          label={t("common:save")}
           style="success"
           variant="light"
           size="sm"

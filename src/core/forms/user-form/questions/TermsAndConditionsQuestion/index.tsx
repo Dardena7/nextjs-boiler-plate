@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { UserForm } from "../../types";
+import { useTranslation } from "next-i18next";
 
 type Props = {
   className?: string;
@@ -10,6 +11,7 @@ type Props = {
 
 export const TermsAndConditionsQuestion: FC<Props> = (props) => {
   const { className } = props;
+  const { t } = useTranslation();
   const { control } = useFormContext<UserForm>();
 
   return (
@@ -21,7 +23,9 @@ export const TermsAndConditionsQuestion: FC<Props> = (props) => {
           <div className={clsx(className)}>
             <FormControlLabel
               className="bold"
-              label={<p className="bold">Accepts terms and conditions *</p>}
+              label={
+                <p className="bold">{t("pages:account.termsAndConditions")}</p>
+              }
               control={
                 <Checkbox
                   onChange={(event) => {
@@ -33,11 +37,7 @@ export const TermsAndConditionsQuestion: FC<Props> = (props) => {
             />
 
             <p className="small italic text-secondary-500">
-              * I agree to the processing and storage of my personal data in
-              accordance with the GDPR regulations. I understand that my data
-              may be used for the purposes of providing me with the requested
-              services and that I have the right to access and amend my personal
-              information at any time.
+              {t("pages:account.termsDescription")}
             </p>
           </div>
         );

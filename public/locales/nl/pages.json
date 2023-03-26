@@ -1,0 +1,18 @@
+{
+  "account": {
+    "title": "Account",
+    "information": "Informatie",
+    "firstname": "Voornaam",
+    "lastname": "Achternaam",
+    "emailAdress": "Emailadres",
+    "editMyInfo": "Mijn informatie bewerken",
+    "acceptTermsAndConditions": "Ik accepteer de voorwaarden en condities *",
+    "termsDescription": "* Ik ga akkoord met de verwerking en opslag van mijn persoonlijke gegevens in overeenstemming met de GDPR regelgeving. Ik begrijp dat mijn gegevens kunnen worden gebruikt om mij de gevraagde diensten en dat ik het recht heb om mijn persoonlijke informatie te allen tijde te wijzigen."
+  },
+  "admin": {
+    "title": "Admin"
+  },
+  "home": {
+    "title": "Home"
+  }
+}
