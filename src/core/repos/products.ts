@@ -1,6 +1,6 @@
 import { i18n } from "next-i18next";
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { api } from "../api";
+import { api } from "../api/api";
 import { Product } from "./types/generic";
 
 // type UpdateUserArgs = {

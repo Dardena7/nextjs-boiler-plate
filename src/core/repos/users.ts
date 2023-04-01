@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { api } from "../api";
+import { api } from "../api/api";
 import { User } from "./types/generic";
 
 type UpdateUserArgs = {

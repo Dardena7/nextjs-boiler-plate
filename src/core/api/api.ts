@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import camelize from 'camelize-ts';
 import { i18n } from 'next-i18next';
 import snakify from 'snakify-ts';
+import { getAccessToken } from './utils';
+
 
 // Create new instance and configure
 const axiosInstance = axios.create({
@@ -11,9 +13,8 @@ const axiosInstance = axios.create({
 // Add Authorization header to the axios instance only if token exists
 axiosInstance.interceptors.request.use(
   async (config) => {
+    const accessToken = await getAccessToken(axios);
 
-    const returnObject = await axios.get('/api/auth/token');
-    const accessToken = returnObject?.data?.accessToken;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }

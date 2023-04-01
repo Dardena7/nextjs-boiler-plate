@@ -28,6 +28,9 @@ export const Navigation = () => {
             <li className="mr-16">
               <Link href={"/account"}>{t("pages:account.title")}</Link>
             </li>
+            <li className="mr-16">
+              <Link href={"/admin"}>{t("pages:admin.title")}</Link>
+            </li>
             <li>
               <Link href={"/api/auth/logout"}>{t("common:logOut")}</Link>
             </li>

@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { api } from "../management-api";
+import { api } from "../api/management-api";
 
 const usersRepo = {
   getRoles: async () => {

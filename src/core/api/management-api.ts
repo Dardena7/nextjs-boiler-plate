@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { getAccessToken } from './utils';
 
 // Create new instance and configure
 const axiosInstance = axios.create({
@@ -8,8 +9,8 @@ const axiosInstance = axios.create({
 // Add Authorization header to the axios instance only if token exists
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const returnObject = await axios.get('/api/auth/management-token');
-    const accessToken = returnObject?.data?.accessToken;
+    const accessToken = await getAccessToken(axios, 'management');
+
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
