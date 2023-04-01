@@ -8,3 +8,7 @@ export type User = {
   auth0Id: string;
   termsAndConditions: boolean;
 }
+
+export type Product = {
+  name: string;
+}

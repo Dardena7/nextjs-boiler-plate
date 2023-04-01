@@ -1,5 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import camelize from 'camelize-ts';
+import { i18n } from 'next-i18next';
 import snakify from 'snakify-ts';
 
 // Create new instance and configure
@@ -10,17 +11,20 @@ const axiosInstance = axios.create({
 // Add Authorization header to the axios instance only if token exists
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const returnObject = await axios.get('/api/auth/token');
 
+    const returnObject = await axios.get('/api/auth/token');
     const accessToken = returnObject?.data?.accessToken;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+
+    config.headers["Accept-Language"] = i18n?.language;
     config.data = snakify(config.data)
+
     return config;
   },
   (error) => {
-    Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
