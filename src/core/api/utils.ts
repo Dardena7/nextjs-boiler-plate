@@ -31,7 +31,7 @@ const getTokenUrl = (type?: string) => {
   }
 }
 
-const getMessageType = (action: 'set' | 'get',type?: string) => {
+const getMessageType = (action: 'set' | 'get', type?: string) => {
   switch(type) {
     case 'management':
       return action === 'get' ? 'getManagementAccessToken' : 'setManagementAccessToken';
