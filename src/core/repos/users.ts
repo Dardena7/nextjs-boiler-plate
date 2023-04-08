@@ -43,5 +43,6 @@ export const useUpdateUser = (userId: string) => {
     return usersRepo.updateUser(userId, args);
   }, {onSuccess: () => {
     queryClient.invalidateQueries(['get-user', userId]);
+    queryClient.invalidateQueries(['get-users']);
   }});
 }

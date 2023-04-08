@@ -2,17 +2,28 @@ import { TextField } from "@mui/material";
 import clsx from "clsx";
 import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { UserForm } from "../../types";
 
 type Props = {
-  name: keyof UserForm;
+  name: string;
   label: string;
+  locale?: string;
   className?: string;
 };
 
-export const TextQuestion: FC<Props> = (props) => {
-  const { name, label, className } = props;
-  const { control } = useFormContext<UserForm>();
+export const TranslationInput: FC<Props> = (props) => {
+  const { name, label, locale = "en", className } = props;
+  const { control } = useFormContext();
+
+  const handleOnChange = (
+    translations: Record<string, string>,
+    newTranslation: string,
+    locale: string,
+    onChange: (...event: any[]) => void
+  ) => {
+    const newTranslations = { ...translations };
+    newTranslations[locale] = newTranslation;
+    onChange(newTranslations);
+  };
 
   return (
     <div className={clsx(className)}>
@@ -25,9 +36,14 @@ export const TextQuestion: FC<Props> = (props) => {
               label={label}
               variant="outlined"
               onChange={(event) => {
-                onChange(event.currentTarget.value);
+                handleOnChange(
+                  value,
+                  event.currentTarget.value,
+                  locale,
+                  onChange
+                );
               }}
-              value={value}
+              value={value?.[locale] || ""}
               size="small"
               required={true}
               error={!!error}

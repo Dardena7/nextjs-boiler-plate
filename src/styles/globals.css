@@ -528,7 +528,7 @@ button {
 .text-primary-200 {
   color: var(--primary-color-200) !important;
 }
-.border-secondary-200 {
+.border-primary-200 {
   border-color: var(--primary-color-200) !important; 
 }
 
@@ -539,7 +539,7 @@ button {
 .text-primary-300 {
   color: var(--primary-color-300) !important;
 }
-.border-secondary-300 {
+.border-primary-300 {
   border-color: var(--primary-color-300) !important; 
 }
 
@@ -652,4 +652,76 @@ button {
 
 .border-secondary-900 {
   border-color: var(--secondary-color-900) !important; 
+}
+/* Neutral */
+/* neutral-100 */
+.bg-neutral-100 {
+  background-color: var(--neutral-color-100) !important;
+}
+.text-neutral-100 {
+  color: var(--neutral-color-100) !important;
+}
+.border-neutral-100 {
+  border-color: var(--neutral-color-100) !important; 
+}
+
+/* neutral-200 */
+.bg-neutral-200 {
+  background-color: var(--neutral-color-200) !important;
+}
+.text-neutral-200 {
+  color: var(--neutral-color-200) !important;
+}
+.border-neutral-200 {
+  border-color: var(--neutral-color-200) !important;
+}
+
+/* neutral-300 */
+.bg-neutral-300 {
+  background-color: var(--neutral-color-300) !important;
+}
+.text-neutral-300 {
+  color: var(--neutral-color-300) !important;
+}
+.border-neutral-300 {
+  border-color: var(--neutral-color-300) !important; 
+}
+
+/* neutral-500 */
+.bg-neutral-500 {
+  background-color: var(--neutral-color-500) !important;
+}
+
+.text-neutral-500 {
+  color: var(--neutral-color-500) !important;
+}
+
+.border-neutral-500 {
+  border-color: var(--neutral-color-500) !important; 
+}
+
+/* neutral-700 */
+.bg-neutral-700 {
+  background-color: var(--neutral-color-700) !important;
+}
+
+.text-neutral-700 {
+  color: var(--neutral-color-700) !important;
+}
+
+.border-neutral-700 {
+  border-color: var(--neutral-color-700) !important; 
+}
+
+/* secondary-900 */
+.bg-neutral-900 {
+  background-color: var(--neutral-color-900) !important;
+}
+
+.text-neutral-900 {
+  color: var(--neutral-color-900) !important;
+}
+
+.border-neutral-900 {
+  border-color: var(--neutral-color-900) !important; 
 }

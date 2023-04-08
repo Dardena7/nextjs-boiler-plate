@@ -1,6 +1,6 @@
 import { getStylesCSSClasses } from "@/core/utils";
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, ReactElement } from "react";
 import { Loader } from "../Loader";
 import styles from "./Button.module.css";
 
@@ -9,14 +9,14 @@ type ButtonVariant = "raised" | "outlined" | "light";
 type ButtonSize = "xs" | "sm" | "md" | "lg";
 
 type Props = {
-  label: string;
+  label: string | ReactElement;
   style: ButtonStyle;
   variant: ButtonVariant;
   size: ButtonSize;
   disabled?: boolean;
   loading?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const getCSSClasses = (

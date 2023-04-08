@@ -8,14 +8,14 @@ import {
   redirectToLoginPage,
 } from "@/core/authorizations";
 
-import { Admin } from "@/features/Admin";
+import { ManageUsers } from "@/features/Admin/users/ManageUsers";
 import { AdminNavigation } from "@/features/navigations/AdminNavigation";
 
-export default function AdminPage() {
+export default function ManageUsersPage() {
   return (
     <>
       <AdminNavigation />
-      <Admin />
+      <ManageUsers />
     </>
   );
 }

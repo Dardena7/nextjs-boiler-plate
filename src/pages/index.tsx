@@ -1,8 +1,8 @@
-import { Navigation } from "@/core/components/Navigation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { GetServerSideProps } from "next";
 import { useGetProducts } from "@/core/repos/products";
+import { UserNavigation } from "@/features/navigations/UserNavigation";
 
 type Props = {};
 
@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Navigation />
+      <UserNavigation />
       <main>
         <h1>Home Page</h1>
         <ul>

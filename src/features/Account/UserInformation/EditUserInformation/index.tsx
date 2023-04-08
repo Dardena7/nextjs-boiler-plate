@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TermsAndConditionsQuestion } from "@/core/forms/user-form/questions/TermsAndConditionsQuestion";
-import { TextQuestion } from "@/core/forms/user-form/questions/TextQuestion";
 import { getDefaultValues } from "@/core/forms/user-form/utils";
 import { useTranslation } from "next-i18next";
 
@@ -12,6 +11,7 @@ import type { FC } from "react";
 import type { User } from "@/core/repos/types/generic";
 import type { UserForm } from "@/core/forms/user-form/types";
 import { useUpdateUser } from "@/core/repos/users";
+import { TextInput } from "@/core/forms/components/TextInput";
 
 type Props = {
   user: User;
@@ -49,12 +49,12 @@ export const EditUserInformation: FC<Props> = (props) => {
   return (
     <div className={clsx(className)}>
       <FormProvider formState={formState} getValues={getValues} {...methods}>
-        <TextQuestion
+        <TextInput
           name="firstname"
           label={t("pages:account.firstname")}
           className="mb-16"
         />
-        <TextQuestion
+        <TextInput
           name="lastname"
           label={t("pages:account.lastname")}
           className="mb-16"

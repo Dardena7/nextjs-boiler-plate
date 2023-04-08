@@ -9,10 +9,33 @@
     "acceptTermsAndConditions": "Ik accepteer de voorwaarden en condities *",
     "termsDescription": "* Ik ga akkoord met de verwerking en opslag van mijn persoonlijke gegevens in overeenstemming met de GDPR regelgeving. Ik begrijp dat mijn gegevens kunnen worden gebruikt om mij de gevraagde diensten en dat ik het recht heb om mijn persoonlijke informatie te allen tijde te wijzigen."
   },
-  "admin": {
-    "title": "Admin"
+  "product": {
+    "products": "Producten",
+    "product": "Product",
+    "productName": "Productnaam",
+    "selectProducts": "Producten selecteren"
+  },
+  "category": {
+    "categories": "Categorieën",
+    "category": "Categorie",
+    "categoryName": "Categorienaam",
+    "selectCategories": "Categories selecteren"
   },
   "home": {
     "title": "Home"
+  },
+  "admin": {
+    "title": "Admin"
+  },
+  "manageUsers": {
+    "title": "Gebruikers"
+  },
+  "manageProducts": {
+    "title": "Producten",
+    "createProduct": "Product creëren"
+  },
+  "manageProduct": {
+    "title": "Product #{{productId}}",
+    "editProduct": "Product bewerken"
   }
 }

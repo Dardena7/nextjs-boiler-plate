@@ -9,10 +9,33 @@
     "acceptTermsAndConditions": "I accept terms and conditions *",
     "termsDescription": "* I agree to the processing and storage of my personal data in accordance with the GDPR regulations. I understand that my data may be used for the purposes of providing me with the requested services and that I have the right to access and amend my personal information at any time."
   },
-  "admin": {
-    "title": "Admin"
+  "product": {
+    "products": "Products",
+    "product": "Product",
+    "productName": "Product name",
+    "selectProducts": "Select products"
+  },
+  "category": {
+    "categories": "Categories",
+    "category": "Category",
+    "categoryName": "Category name",
+    "selectCategories": "Select categories"
   },
   "home": {
     "title": "Home"
+  },
+  "admin": {
+    "title": "Admin"
+  },
+  "manageUsers": {
+    "title": "Users"
+  },
+  "manageProducts": {
+    "title": "Products",
+    "createProduct": "Create product"
+  },
+  "manageProduct": {
+    "title": "Product #{{productId}}",
+    "editProduct": "Edit product"
   }
 }

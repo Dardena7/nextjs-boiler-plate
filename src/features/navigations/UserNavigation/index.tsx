@@ -3,17 +3,14 @@ import { MenuItem, Select } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { localeRedirect } from "../utils";
 
-export const Navigation = () => {
+export const UserNavigation = () => {
   const { t } = useTranslation();
   const { user } = useUser();
   const router = useRouter();
 
   const { locales, locale } = router;
-
-  const localeRedirect = (locale: string) => {
-    router.push(router.pathname, "", { locale });
-  };
 
   return (
     <nav className="p-16 layout-row layout-align-space-between border-bottom border-2 border-secondary-300 text-secondary-900">
@@ -21,15 +18,15 @@ export const Navigation = () => {
         <li>
           <Link href={"/"}>{t("pages:home.title")}</Link>
         </li>
+        <li className="ml-16">
+          <Link href={"/admin"}>{t("pages:admin.title")}</Link>
+        </li>
       </ul>
       <ul className="layout-row layout-align-end-center">
         {!!user ? (
           <>
             <li className="mr-16">
               <Link href={"/account"}>{t("pages:account.title")}</Link>
-            </li>
-            <li className="mr-16">
-              <Link href={"/admin"}>{t("pages:admin.title")}</Link>
             </li>
             <li>
               <Link href={"/api/auth/logout"}>{t("common:logOut")}</Link>
@@ -45,7 +42,7 @@ export const Navigation = () => {
             variant="standard"
             size="small"
             value={locale}
-            onChange={(ev) => localeRedirect(ev.target.value)}
+            onChange={(ev) => localeRedirect(router, ev.target.value)}
           >
             {locales?.map((l) => {
               return (

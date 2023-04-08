@@ -1,14 +1,14 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-import { Navigation } from "@/core/components/Navigation";
 import { Account } from "@/features/Account";
 import { checkSessionValid, redirectToLoginPage } from "@/core/authorizations";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { UserNavigation } from "@/features/navigations/UserNavigation";
 
 export default function AccountPage() {
   return (
     <>
-      <Navigation />
+      <UserNavigation />
       <Account />
     </>
   );
