@@ -11,7 +11,7 @@ self.addEventListener('message', async (event) => {
       accessToken = value;
       break;
     case 'getManagementAccessToken':
-      self.postMessage({ type: 'accessToken', value: managementAccessToken });
+      self.postMessage({ type: 'accessTokenManagement', value: managementAccessToken });
       break;
     case 'setManagementAccessToken':
       managementAccessToken = value;

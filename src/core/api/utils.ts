@@ -40,25 +40,28 @@ const getMessageType = (action: 'set' | 'get', type?: string) => {
   }
 }
 
-export const getAccessToken = async (axios: AxiosStatic, type?: string) => {
+export const getAccessToken = async (axios: AxiosStatic, tokenType?: string) => {
   const tokenWorker = getAccessTokenWorker();
 
    const accessTokenPromise = new Promise((resolve) => {
       tokenWorker.addEventListener('message', (event) => {
         const { type, value } = event.data;
-        if (type === 'accessToken') {
+        if (!tokenType && type === 'accessToken') {
+          resolve(value);
+        }
+        if (tokenType === 'management' && type === 'accessTokenManagement') {
           resolve(value);
         }
       });
-      tokenWorker.postMessage({ type: getMessageType('get', type) });
+      tokenWorker.postMessage({ type: getMessageType('get', tokenType) });
     });
 
     let accessToken = await accessTokenPromise as string;
 
     if (!hasValidToken(accessToken)) {
-      const returnObject = await axios.get(getTokenUrl(type));
+      const returnObject = await axios.get(getTokenUrl(tokenType));
       accessToken = returnObject?.data?.accessToken;
-      if (!!accessToken) tokenWorker.postMessage({ type: getMessageType('set', type), value: accessToken });
+      if (!!accessToken) tokenWorker.postMessage({ type: getMessageType('set', tokenType), value: accessToken });
     }
 
     return accessToken;
