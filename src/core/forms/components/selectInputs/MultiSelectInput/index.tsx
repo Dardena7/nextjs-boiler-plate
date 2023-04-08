@@ -18,7 +18,7 @@ export const MultiSelectInput: FC<Props> = (props) => {
     <Select
       instanceId={instanceId}
       placeholder={placeholder}
-      value={options.filter((option) => value.includes(option.value))}
+      value={options.filter((option) => value?.includes(option.value))}
       options={options}
       isMulti={true}
       onChange={(selectedOptions) => {

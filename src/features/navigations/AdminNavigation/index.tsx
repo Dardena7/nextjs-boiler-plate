@@ -27,6 +27,11 @@ export const AdminNavigation = () => {
           </Link>
         </li>
         <li className="ml-16">
+          <Link href={"/admin/categories"}>
+            {t("pages:manageCategories.title")}
+          </Link>
+        </li>
+        <li className="ml-16">
           <Link href={"/admin/users"}>{t("pages:manageUsers.title")}</Link>
         </li>
       </ul>

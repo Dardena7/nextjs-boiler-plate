@@ -37,5 +37,13 @@
   "manageProduct": {
     "title": "Product #{{productId}}",
     "editProduct": "Product bewerken"
+  },
+  "manageCategories": {
+    "title": "Categorieën",
+    "createCategory": "Categorie creëren"
+  },
+  "manageCategory": {
+    "title": "Categorie #{{categoryId}}",
+    "editCategory": "Categorie bewerken"
   }
 }

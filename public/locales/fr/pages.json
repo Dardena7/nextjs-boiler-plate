@@ -21,6 +21,10 @@
     "categoryName": "Nom de la catégorie",
     "selectCategories": "Sélectionner des catégories"
   },
+  "home": {
+    "title": "Accueil",
+    "editProduct": "Editer le produit"
+  },
   "admin": {
     "title": "Admin"
   },
@@ -32,11 +36,16 @@
     "createProduct": "Créer un produit"
   },
   "manageProduct": {
-    "title": "Produit #{{productId}}"
+    "title": "Produit #{{productId}}",
+    "editProduct": "Editer un produit"
   },
-  "home": {
-    "title": "Accueil",
-    "editProduct": "Editer le produit"
+  "manageCategories": {
+    "title": "Catégories",
+    "createCategory": "Créer une catégorie"
+  },
+  "manageCategory": {
+    "title": "Categorie #{{categoryId}}",
+    "editCategory": "Editer une catégorie"
   }
 
 }

@@ -14,6 +14,7 @@ export type User = {
 export type Category = {
   id: number;
   name?: string;
+  products: Product[];
   translations?: {name: Translation}
 }
 
