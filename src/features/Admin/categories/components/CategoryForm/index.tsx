@@ -3,8 +3,8 @@ import { MenuItem, Select } from "@mui/material";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useTranslation } from "next-i18next";
-import { TranslationInput } from "@/core/forms/components/TranslationInput";
 import { ProductsSelect } from "@/core/forms/category-form/questions/ProductsSelect";
+import { TranslationInput } from "@/core/forms/_components/TranslationInput";
 
 type Props = {
   onSave: () => void;

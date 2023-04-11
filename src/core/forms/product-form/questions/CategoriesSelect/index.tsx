@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { FC, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "next-i18next";
-import { MultiSelectInput } from "@/core/forms/components/selectInputs/MultiSelectInput";
 import { useGetCategories } from "@/core/repos/categories";
+import { MultiSelectInput } from "@/core/forms/_components/select-inputs/MultiSelectInput";
 
 type Props = {
   className?: string;
@@ -29,6 +29,7 @@ export const CategoriesSelect: FC<Props> = (props) => {
 
   return (
     <div className={clsx(className)} data-testid="categories-select">
+      <p className="mb-8 bold">{t("pages:category.categories")}</p>
       <Controller
         name="categories"
         control={control}

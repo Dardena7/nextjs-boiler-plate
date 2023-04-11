@@ -7,9 +7,10 @@ import { ProductFormType } from "@/core/forms/product-form/types";
 import { getDefaultValues } from "@/core/forms/product-form/utils";
 import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getValidationSchema } from "@/core/forms/user-form/validation";
 import { ArrowBack } from "@mui/icons-material";
 import { Button } from "@/core/components/Button";
+import { useUploadFiles } from "@/core/repos/files";
+import { getValidationSchema } from "@/core/forms/product-form/validation";
 
 export const ManageProduct = () => {
   const router = useRouter();
@@ -19,23 +20,52 @@ export const ManageProduct = () => {
 
   const { data: product } = useGetProduct(productId as string, !!productId);
   const { mutate: updateProduct } = useUpdateProduct(productId as string);
+  const { mutate: uploadFiles } = useUploadFiles();
 
-  const { getValues, formState, reset, ...methods } = useForm<ProductFormType>({
-    mode: "onChange",
-    defaultValues: { name: undefined, categories: [] },
-    resolver: yupResolver(getValidationSchema()),
-  });
+  const { getValues, setValue, formState, reset, ...methods } =
+    useForm<ProductFormType>({
+      mode: "onChange",
+      defaultValues: { name: undefined, categories: [], imageIds: [] },
+      resolver: yupResolver(getValidationSchema()),
+    });
 
-  const handleUpdateProduct = () => {
-    const args = getValues();
+  const { isValid } = formState;
+
+  const handleCreateProduct = (args: ProductFormType) => {
     updateProduct(args, {
-      onSuccess: (res) => {
-        //$$alex toast success
+      onSuccess: () => {
+        reset();
       },
       onError: (err) => {
-        //$$alex toast error
+        console.log("$$alex e", err);
       },
     });
+  };
+
+  const handleCreateProductWithImages = (args: ProductFormType) => {
+    const formData = new FormData();
+
+    args.images.forEach((image) => {
+      formData.append("files[]", image);
+    });
+
+    uploadFiles(formData, {
+      onSuccess: (response) => {
+        const imageIds = [...args.imageIds, ...response.blobIds];
+        setValue("imageIds", imageIds);
+        handleCreateProduct({ ...args, imageIds });
+      },
+      onError: (err) => {
+        console.log("$$alex res", err);
+      },
+    });
+  };
+
+  const handleUpdateProduct = async () => {
+    const args = getValues();
+
+    if (!!args.images.length) return handleCreateProductWithImages(args);
+    return handleCreateProduct(args);
   };
 
   useEffect(() => {
@@ -64,11 +94,12 @@ export const ManageProduct = () => {
         <h2 className="mt-32 mb-16">{t("pages:manageProduct.editProduct")}</h2>
         <FormProvider
           getValues={getValues}
+          setValue={setValue}
           reset={reset}
           formState={formState}
           {...methods}
         >
-          <ProductForm onSave={handleUpdateProduct} />
+          <ProductForm onSave={handleUpdateProduct} isValid={isValid} />
         </FormProvider>
       </div>
     </div>

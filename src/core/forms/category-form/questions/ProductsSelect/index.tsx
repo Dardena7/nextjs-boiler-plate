@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { FC, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "next-i18next";
-import { MultiSelectInput } from "@/core/forms/components/selectInputs/MultiSelectInput";
 import { useGetProducts } from "@/core/repos/products";
+import { MultiSelectInput } from "@/core/forms/_components/select-inputs/MultiSelectInput";
 
 type Props = {
   className?: string;
@@ -33,7 +33,6 @@ export const ProductsSelect: FC<Props> = (props) => {
         name="products"
         control={control}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
-          console.log("$$alex", value);
           return (
             <MultiSelectInput
               instanceId={"products-select"}

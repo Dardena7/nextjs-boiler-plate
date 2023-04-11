@@ -1,4 +1,5 @@
 export type Translation = Record<string, string>;
+export type FileData = {id: number, url: string};
 
 export type User = {
   id: number;
@@ -22,5 +23,6 @@ export type Product = {
   id: number;
   name?: string;
   categories: Category[];
+  images: FileData[];
   translations?: {name: Translation}
 }

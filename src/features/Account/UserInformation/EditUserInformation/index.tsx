@@ -11,7 +11,7 @@ import type { FC } from "react";
 import type { User } from "@/core/repos/types/generic";
 import type { UserForm } from "@/core/forms/user-form/types";
 import { useUpdateUser } from "@/core/repos/users";
-import { TextInput } from "@/core/forms/components/TextInput";
+import { TextInput } from "@/core/forms/_components/TextInput";
 
 type Props = {
   user: User;
