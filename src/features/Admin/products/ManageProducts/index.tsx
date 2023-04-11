@@ -31,9 +31,6 @@ export const ManageProducts = () => {
       onSuccess: () => {
         reset();
       },
-      onError: (err) => {
-        console.log("$$alex e", err);
-      },
     });
   };
 
@@ -49,9 +46,6 @@ export const ManageProducts = () => {
         const imageIds = [...args.imageIds, ...response.blobIds];
         setValue("imageIds", imageIds);
         handleCreateProduct({ ...args, imageIds });
-      },
-      onError: (err) => {
-        console.log("$$alex res", err);
       },
     });
   };

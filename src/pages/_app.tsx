@@ -5,6 +5,8 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "@/styles/theme";
 import { appWithTranslation } from "next-i18next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = ({ Component, pageProps }: AppProps) => {
   const queryClient = new QueryClient({
@@ -21,6 +23,7 @@ export const App = ({ Component, pageProps }: AppProps) => {
       <UserProvider>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
+          <ToastContainer />
         </ThemeProvider>
       </UserProvider>
     </QueryClientProvider>

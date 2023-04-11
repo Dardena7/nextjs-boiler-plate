@@ -1,6 +1,7 @@
 import { i18n } from "next-i18next";
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { api } from "../api/api";
+import { toast } from "../utils/toasts";
 import { Category } from "./types/generic";
 
 type CreateCategoryArgs = {
@@ -55,8 +56,14 @@ export const useUpdateCategory= (categoryId: string) => {
     return categoriesRepo.updateCategory(categoryId, args);
   }, {
     onSuccess: () => {
+      //$$alex ts
+      toast('Category updated.', 'success');
       queryClient.invalidateQueries(['get-category', categoryId]);
       queryClient.invalidateQueries(['get-categories']);
+    },
+    onError: () => {
+      //$$alex ts
+      toast('An error occured!', 'error');
     }
   });
 }

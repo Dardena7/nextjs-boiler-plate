@@ -36,6 +36,8 @@ export const ImagesManager: FC<Props> = (props) => {
         name="imageIds"
         control={control}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
+          console.log("$$alex value", value);
+
           return (
             <div>
               {/* $$alex ts */}
@@ -44,7 +46,7 @@ export const ImagesManager: FC<Props> = (props) => {
               {value?.map((imageId: number, index: number) => {
                 const image = findImage(imageId);
 
-                if (!image) return <></>;
+                if (!image) return;
 
                 return (
                   <div

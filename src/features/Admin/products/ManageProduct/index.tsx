@@ -11,6 +11,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { Button } from "@/core/components/Button";
 import { useUploadFiles } from "@/core/repos/files";
 import { getValidationSchema } from "@/core/forms/product-form/validation";
+import { toast } from "@/core/utils/toasts";
 
 export const ManageProduct = () => {
   const router = useRouter();
@@ -36,9 +37,6 @@ export const ManageProduct = () => {
       onSuccess: () => {
         reset();
       },
-      onError: (err) => {
-        console.log("$$alex e", err);
-      },
     });
   };
 
@@ -56,7 +54,7 @@ export const ManageProduct = () => {
         handleCreateProduct({ ...args, imageIds });
       },
       onError: (err) => {
-        console.log("$$alex res", err);
+        toast("Hello", "success");
       },
     });
   };

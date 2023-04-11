@@ -1,6 +1,7 @@
 import { i18n } from "next-i18next";
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { api } from "../api/api";
+import { toast } from "../utils/toasts";
 import { Product } from "./types/generic";
 
 type CreateProductArgs = {
@@ -45,7 +46,13 @@ export const useCreateProduct = () => {
     return productsRepo.createProduct(args);
   }, {
     onSuccess: () => {
+      //$$alex ts
+      toast('Product created.', 'success');
       queryClient.invalidateQueries(['get-products']);
+    }, 
+    onError: () => {
+      //$$alex ts
+      toast('An error occured!', 'error');
     }
   });
 }
@@ -56,8 +63,14 @@ export const useUpdateProduct= (productId: string) => {
     return productsRepo.updateProduct(productId, args);
   }, {
     onSuccess: () => {
+      //$$alex ts
+      toast('Product updated.', 'success');
       queryClient.invalidateQueries(['get-product', productId]);
       queryClient.invalidateQueries(['get-products']);
+    },
+    onError: () => {
+      //$$alex ts
+      toast('An error occured!', 'error');
     }
   });
 }

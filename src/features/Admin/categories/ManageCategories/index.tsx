@@ -29,9 +29,6 @@ export const ManageCategories = () => {
       onSuccess: () => {
         reset();
       },
-      onError: (err) => {
-        console.log("$$alex e", err);
-      },
     });
   };
 

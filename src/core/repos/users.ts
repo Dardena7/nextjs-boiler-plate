@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { api } from "../api/api";
+import { toast } from "../utils/toasts";
 import { User } from "./types/generic";
 
 type UpdateUserArgs = {
@@ -42,7 +43,13 @@ export const useUpdateUser = (userId: string) => {
   return useMutation((args: UpdateUserArgs) => {
     return usersRepo.updateUser(userId, args);
   }, {onSuccess: () => {
+    //$$alex ts
+    toast('User updated', 'success');
     queryClient.invalidateQueries(['get-user', userId]);
     queryClient.invalidateQueries(['get-users']);
+  },
+  onError: () => {
+    //$$alex ts
+    toast('An error occured!', 'error');
   }});
 }
