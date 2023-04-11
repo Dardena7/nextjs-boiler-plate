@@ -1,0 +1,7 @@
+.remove-file:hover {
+  background-color: var(--danger-color-300) !important;
+}
+
+.remove-file:active {
+  opacity: 0.7;
+}

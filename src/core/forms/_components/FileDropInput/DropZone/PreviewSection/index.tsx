@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { FC } from "react";
-import { FilePreview } from "./FilePreview";
+import { FileWrapper } from "../../../FileWrapper";
+import Image from "next/image";
 
 type Props = {
   files: File[];
@@ -20,13 +21,24 @@ export const PreviewSection: FC<Props> = (props) => {
           const preview = URL.createObjectURL(file);
 
           return (
-            <FilePreview
-              key={`image-${index}`}
-              files={files}
-              onChange={onChange}
-              preview={preview}
-              fileIndex={index}
-            />
+            <FileWrapper
+              key={`image-preview-${index}`}
+              onRemove={() => {
+                const updatedFiles = [
+                  ...files.slice(0, index),
+                  ...files.slice(index + 1),
+                ];
+                onChange(updatedFiles);
+              }}
+            >
+              <Image
+                width="160"
+                height="120"
+                src={preview}
+                onLoad={() => URL.revokeObjectURL(preview)}
+                alt={`image-preview-${index}`}
+              />
+            </FileWrapper>
           );
         })}
       </div>
