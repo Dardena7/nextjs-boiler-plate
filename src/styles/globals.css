@@ -84,6 +84,14 @@ button {
   cursor: pointer;
 }
 
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
 .width-100 {
   width: 100%;
 }

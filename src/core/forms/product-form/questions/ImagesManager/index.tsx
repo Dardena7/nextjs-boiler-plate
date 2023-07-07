@@ -35,8 +35,6 @@ export const ImagesManager: FC<Props> = (props) => {
         name="imageIds"
         control={control}
         render={({ field: { value, onChange }, fieldState: { error } }) => {
-          console.log("$$alex value", value);
-
           return (
             <div>
               {/* $$alex ts */}
