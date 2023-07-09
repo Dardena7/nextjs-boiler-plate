@@ -72,8 +72,8 @@ export const ManageProduct = () => {
   }, [product]);
 
   return (
-    <div>
-      <h1 className="my-32 text-center">
+    <div className="py-32">
+      <h1 className="mb-32 text-center">
         {t("pages:manageProduct.title", { productId: product?.id })}
       </h1>
       <div className="container-md">
@@ -89,16 +89,20 @@ export const ManageProduct = () => {
           size={"sm"}
           onClick={() => router.push("/admin/products")}
         />
-        <h2 className="mt-32 mb-16">{t("pages:manageProduct.editProduct")}</h2>
-        <FormProvider
-          getValues={getValues}
-          setValue={setValue}
-          reset={reset}
-          formState={formState}
-          {...methods}
-        >
-          <ProductForm onSave={handleUpdateProduct} isValid={isValid} />
-        </FormProvider>
+        <div className="shadow-3 p-16">
+          <h2 className="mt-32 mb-16">
+            {t("pages:manageProduct.editProduct")}
+          </h2>
+          <FormProvider
+            getValues={getValues}
+            setValue={setValue}
+            reset={reset}
+            formState={formState}
+            {...methods}
+          >
+            <ProductForm onSave={handleUpdateProduct} isValid={isValid} />
+          </FormProvider>
+        </div>
       </div>
     </div>
   );

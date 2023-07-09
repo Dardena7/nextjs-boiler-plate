@@ -3,24 +3,19 @@ import type { FC, ReactNode } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import { ItemTypes } from "./ItemTypes";
 import { DragIndicator } from "@mui/icons-material";
+import { DragItem } from "@/core/repos/types/generic";
 
 export interface CardProps {
   id: any;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  setDroppedItem: (item: DragItem) => void;
   children: ReactNode;
 }
 
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
-}
-
 export const Card: FC<CardProps> = (props) => {
-  const { id, index, moveCard, children } = props;
+  const { id, index, moveCard, setDroppedItem, children } = props;
 
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
@@ -28,7 +23,7 @@ export const Card: FC<CardProps> = (props) => {
     void,
     { handlerId: Identifier | null }
   >({
-    accept: ItemTypes.CARD,
+    accept: "CARD",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -82,10 +77,13 @@ export const Card: FC<CardProps> = (props) => {
       // to avoid expensive index searches.
       item.index = hoverIndex;
     },
+    drop(item: DragItem, monitor) {
+      setDroppedItem(item);
+    },
   });
 
   const [{ isDragging }, drag, preview] = useDrag({
-    type: ItemTypes.CARD,
+    type: "CARD",
     item: () => {
       return { id, index };
     },
@@ -95,7 +93,9 @@ export const Card: FC<CardProps> = (props) => {
   });
 
   const opacity = isDragging ? 0 : 1;
+
   drag(drop(ref));
+
   return (
     <div
       ref={(node) => preview(drop(node))}
@@ -106,7 +106,7 @@ export const Card: FC<CardProps> = (props) => {
       <div ref={ref} style={{ cursor: "move" }} className="mr-16">
         <DragIndicator />
       </div>
-      <div>{children}</div>
+      <div className="width-100">{children}</div>
     </div>
   );
 };

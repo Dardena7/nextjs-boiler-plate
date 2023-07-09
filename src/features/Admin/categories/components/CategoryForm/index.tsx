@@ -3,7 +3,6 @@ import { MenuItem, Select } from "@mui/material";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useTranslation } from "next-i18next";
-import { ProductsSelect } from "@/core/forms/category-form/questions/ProductsSelect";
 import { TranslationInput } from "@/core/forms/_components/TranslationInput";
 
 type Props = {
@@ -43,8 +42,6 @@ export const CategoryForm: FC<Props> = (props) => {
         label={t("pages:category.categoryName")}
         locale={editLocale}
       />
-
-      <ProductsSelect />
 
       <Button
         label={t("common:save")}
