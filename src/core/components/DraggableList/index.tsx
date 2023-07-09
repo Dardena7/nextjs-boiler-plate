@@ -1,10 +1,9 @@
 import type { FC, ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card } from "./Card";
 import clsx from "clsx";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DragItem } from "@/core/repos/types/generic";
 
 export interface Item {
   id: number;
@@ -18,11 +17,11 @@ export interface ContainerState {
 type Props = {
   className?: string;
   items: Item[];
-  setNewPositions: (items: number[]) => void;
+  setDroppedItem: (item: DragItem) => void;
 };
 
 export const DraggableList: FC<Props> = (props) => {
-  const { items, className, setNewPositions } = props;
+  const { items, className, setDroppedItem } = props;
 
   const [cards, setCards] = useState(items);
 
@@ -32,14 +31,23 @@ export const DraggableList: FC<Props> = (props) => {
     newList.splice(hoverIndex, 0, cards[dragIndex]);
 
     setCards(newList);
-    setNewPositions(newList.map((item) => item.id));
   };
+
+  useEffect(() => {
+    setCards(items);
+  }, [items]);
 
   return (
     <div className={clsx(className)}>
       {cards.map((card, index) => {
         return (
-          <Card key={card.id} index={index} id={card.id} moveCard={moveCard}>
+          <Card
+            key={card.id}
+            index={index}
+            id={card.id}
+            moveCard={moveCard}
+            setDroppedItem={setDroppedItem}
+          >
             {card.content}
           </Card>
         );

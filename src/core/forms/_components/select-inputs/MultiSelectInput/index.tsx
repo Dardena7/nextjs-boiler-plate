@@ -2,13 +2,13 @@ import { FC } from "react";
 import Select from "react-select";
 import { getCustomStyles } from "../utils";
 
-type option = { label: string; value: unknown };
+type Option = { label: string; value: unknown };
 
 type Props = {
   instanceId: string;
   placeholder: string;
   value: unknown[];
-  options: option[];
+  options: Option[];
   onChange: (newValue: unknown) => void;
 };
 

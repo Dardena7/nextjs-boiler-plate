@@ -8,6 +8,7 @@ import { getValidationSchema } from "@/core/forms/product-form/validation";
 import { ProductForm } from "../components/ProductForm";
 import { ProductFormType } from "@/core/forms/product-form/types";
 import { useUploadFiles } from "@/core/repos/files";
+import { CancelTwoTone } from "@mui/icons-material";
 
 export const ManageProducts = () => {
   const { data: products } = useGetProducts();
@@ -58,10 +59,10 @@ export const ManageProducts = () => {
   };
 
   return (
-    <div>
-      <h1 className="my-32 text-center">{t("pages:manageProducts.title")}</h1>
+    <div className="py-32">
+      <h1 className="mb-32 text-center">{t("pages:manageProducts.title")}</h1>
       <div className="container-md">
-        <div className="mb-32">
+        <div className="mb-32 shadow-3 p-16">
           <h2 className="mb-16">{t("pages:manageProducts.createProduct")}</h2>
           <FormProvider
             handleSubmit={handleSubmit}
@@ -74,20 +75,28 @@ export const ManageProducts = () => {
             <ProductForm onSave={handleSaveProduct} isValid={isValid} />
           </FormProvider>
         </div>
-        <div>
+        <div className="shadow-3 p-16">
           <h2 className="mb-16">{t("pages:manageProducts.title")}</h2>
           <ul>
             {products?.map((product, index) => {
               return (
-                <Link
-                  href={`/admin/products/${product.id}`}
+                <div
                   key={`product-${index}`}
+                  className="mb-4 p-8 layout-row layout-align-space-between-center border rounded-sm border-secondary-300 bg-neutral-100"
                 >
-                  <p className="mb-8">
-                    <span className="mr-8">{product.id}</span>
-                    <span>{product.name}</span>
-                  </p>
-                </Link>
+                  <Link href={`/admin/products/${product.id}`}>
+                    <p>
+                      <span className="mr-8">{product.id}</span>
+                      <span className="text-underline">{product.name}</span>
+                    </p>
+                  </Link>
+                  <CancelTwoTone
+                    className="text-danger-500 cursor-pointer"
+                    onClick={() =>
+                      console.log("$$alex remove product", product.id)
+                    }
+                  />
+                </div>
               );
             })}
           </ul>

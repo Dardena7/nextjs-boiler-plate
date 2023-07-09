@@ -1,5 +1,5 @@
 export type Translation = Record<string, string>;
-export type FileData = {id: number, url: string};
+export type FileData = { id: number; url: string };
 
 export type User = {
   id: number;
@@ -10,19 +10,24 @@ export type User = {
   updatedAt: string;
   auth0Id: string;
   termsAndConditions: boolean;
-}
+};
 
 export type Category = {
   id: number;
   name?: string;
   products: Product[];
-  translations?: {name: Translation}
-}
+  translations?: { name: Translation };
+};
 
 export type Product = {
   id: number;
   name?: string;
   categories: Category[];
   images: FileData[];
-  translations?: {name: Translation}
-}
+  translations?: { name: Translation };
+};
+
+export type DragItem = {
+  index: number;
+  id: number;
+};
