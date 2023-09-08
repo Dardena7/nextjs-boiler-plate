@@ -1,11 +1,16 @@
-import { i18n } from "next-i18next";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { api } from "../api/api";
-import { toast } from "../utils/toasts";
-import { Category } from "./types/generic";
+import { i18n } from 'next-i18next';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { api } from '../api/api';
+import { toast } from '../utils/toasts';
+import { Category } from './types/generic';
 
 type CreateCategoryArgs = {
   name: Record<string, string>;
+};
+
+type UpdateCategoryArgs = {
+  name?: Record<string, string>;
+  active?: boolean;
 };
 
 type MoveProductArgs = {
@@ -25,7 +30,7 @@ const categoriesRepo = {
     return response.data;
   },
   getCategories: async (): Promise<Category[]> => {
-    const response = await api.get("/categories");
+    const response = await api.get('/categories');
     return response.data;
   },
   createCategory: async (args: CreateCategoryArgs): Promise<Category> => {
@@ -34,9 +39,13 @@ const categoriesRepo = {
   },
   updateCategory: async (
     categoryId: number,
-    args: Partial<CreateCategoryArgs>
+    args: Partial<UpdateCategoryArgs>
   ): Promise<Category> => {
     const response = await api.patch(`/categories/${categoryId}`, args);
+    return response.data;
+  },
+  deleteCategory: async (categoryId: number): Promise<Category> => {
+    const response = await api.delete(`/categories/${categoryId}`);
     return response.data;
   },
   addProduct: async (args: {
@@ -66,14 +75,14 @@ const categoriesRepo = {
 };
 
 export const useGetCategories = () => {
-  return useQuery(["get-categories", i18n?.language], () => {
+  return useQuery(['get-categories', i18n?.language], () => {
     return categoriesRepo.getCategories();
   });
 };
 
 export const useGetCategory = (categoryId: number, enabled = false) => {
   return useQuery(
-    ["get-category", categoryId],
+    ['get-category', categoryId],
     () => {
       return categoriesRepo.getCategory(categoryId);
     },
@@ -89,7 +98,7 @@ export const useCreateCategory = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["get-categories"]);
+        queryClient.invalidateQueries(['get-categories']);
       },
     }
   );
@@ -98,19 +107,39 @@ export const useCreateCategory = () => {
 export const useUpdateCategory = (categoryId: number) => {
   const queryClient = useQueryClient();
   return useMutation(
-    (args: Partial<CreateCategoryArgs>) => {
+    (args: Partial<UpdateCategoryArgs>) => {
       return categoriesRepo.updateCategory(categoryId, args);
     },
     {
       onSuccess: () => {
         //$$alex ts
-        toast("Category updated.", "success");
-        queryClient.invalidateQueries(["get-category", categoryId]);
-        queryClient.invalidateQueries(["get-categories"]);
+        toast('Category updated.', 'success');
+        queryClient.invalidateQueries(['get-category', categoryId]);
+        queryClient.invalidateQueries(['get-categories']);
       },
       onError: () => {
         //$$alex ts
-        toast("An error occured!", "error");
+        toast('An error occured!', 'error');
+      },
+    }
+  );
+};
+
+export const useDeleteCategory = (categoryId: number) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    () => {
+      return categoriesRepo.deleteCategory(categoryId);
+    },
+    {
+      onSuccess: () => {
+        //$$alex ts
+        toast('Category deleted.', 'success');
+        queryClient.invalidateQueries(['get-categories']);
+      },
+      onError: () => {
+        //$$alex ts
+        toast('An error occured!', 'error');
       },
     }
   );
@@ -125,13 +154,13 @@ export const useAddCategoryProduct = (categoryId: number) => {
     {
       onSuccess: () => {
         //$$alex ts
-        toast("Category updated.", "success");
-        queryClient.invalidateQueries(["get-category", categoryId]);
-        queryClient.invalidateQueries(["get-categories"]);
+        toast('Category updated.', 'success');
+        queryClient.invalidateQueries(['get-category', categoryId]);
+        queryClient.invalidateQueries(['get-categories']);
       },
       onError: () => {
         //$$alex ts
-        toast("An error occured!", "error");
+        toast('An error occured!', 'error');
       },
     }
   );
@@ -146,13 +175,13 @@ export const useRemoveCategoryProduct = (categoryId: number) => {
     {
       onSuccess: () => {
         //$$alex ts
-        toast("Category updated.", "success");
-        queryClient.invalidateQueries(["get-category", categoryId]);
-        queryClient.invalidateQueries(["get-categories"]);
+        toast('Category updated.', 'success');
+        queryClient.invalidateQueries(['get-category', categoryId]);
+        queryClient.invalidateQueries(['get-categories']);
       },
       onError: () => {
         //$$alex ts
-        toast("An error occured!", "error");
+        toast('An error occured!', 'error');
       },
     }
   );

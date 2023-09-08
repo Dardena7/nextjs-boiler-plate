@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
   --danger-color-100: #fbeff3;
@@ -7,6 +7,12 @@
   --danger-color-500: #bd0f58;
   --danger-color-700: #8f1941;
   --danger-color-900: #410b1e;
+  --warning-color-100: #fbf5e4;
+  --warning-color-200: #f9ecd2;
+  --warning-color-300: #f8ddb4;
+  --warning-color-500: #f9af1f;
+  --warning-color-700: #805400;
+  --warning-color-900: #322101;
   --success-color-100: #f4fbef;
   --success-color-200: #e2f0db;
   --success-color-300: #d1e4cd;
@@ -37,7 +43,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -1029,4 +1035,77 @@ button {
 
 .border-danger-900 {
   border-color: var(--danger-color-900) !important;
+}
+
+/* Warning */
+/* warning-100 */
+.bg-warning-100 {
+  background-color: var(--warning-color-100) !important;
+}
+.text-warning-100 {
+  color: var(--warning-color-100) !important;
+}
+.border-warning-100 {
+  border-color: var(--warning-color-100) !important;
+}
+
+/* warning-200 */
+.bg-warning-200 {
+  background-color: var(--warning-color-200) !important;
+}
+.text-warning-200 {
+  color: var(--warning-color-200) !important;
+}
+.border-warning-200 {
+  border-color: var(--warning-color-200) !important;
+}
+
+/* warning-300 */
+.bg-warning-300 {
+  background-color: var(--warning-color-300) !important;
+}
+.text-warning-300 {
+  color: var(--warning-color-300) !important;
+}
+.border-warning-300 {
+  border-color: var(--warning-color-300) !important;
+}
+
+/* warning-500 */
+.bg-warning-500 {
+  background-color: var(--warning-color-500) !important;
+}
+
+.text-warning-500 {
+  color: var(--warning-color-500) !important;
+}
+
+.border-warning-500 {
+  border-color: var(--warning-color-500) !important;
+}
+
+/* warning-700 */
+.bg-warning-700 {
+  background-color: var(--warning-color-700) !important;
+}
+
+.text-warning-700 {
+  color: var(--warning-color-700) !important;
+}
+
+.border-warning-700 {
+  border-color: var(--warning-color-700) !important;
+}
+
+/* warning-900 */
+.bg-warning-900 {
+  background-color: var(--warning-color-900) !important;
+}
+
+.text-warning-900 {
+  color: var(--warning-color-900) !important;
+}
+
+.border-warning-900 {
+  border-color: var(--warning-color-900) !important;
 }

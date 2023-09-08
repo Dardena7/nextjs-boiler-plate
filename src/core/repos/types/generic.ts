@@ -14,6 +14,7 @@ export type User = {
 
 export type Category = {
   id: number;
+  active: boolean;
   name?: string;
   products: Product[];
   translations?: { name: Translation };
@@ -21,6 +22,7 @@ export type Category = {
 
 export type Product = {
   id: number;
+  active: boolean;
   name?: string;
   categories: Category[];
   images: FileData[];

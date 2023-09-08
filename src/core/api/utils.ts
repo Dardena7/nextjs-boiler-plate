@@ -1,5 +1,5 @@
 import { AxiosStatic } from 'axios';
-import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode';
 
 const getAccessTokenWorker = (() => {
   let worker: Worker | null = null;
@@ -23,46 +23,55 @@ const hasValidToken = (token: string | null) => {
 };
 
 const getTokenUrl = (type?: string) => {
-  switch(type) {
+  switch (type) {
     case 'management':
       return '/api/auth/management-token';
     default:
       return '/api/auth/token';
   }
-}
+};
 
 const getMessageType = (action: 'set' | 'get', type?: string) => {
-  switch(type) {
+  switch (type) {
     case 'management':
-      return action === 'get' ? 'getManagementAccessToken' : 'setManagementAccessToken';
+      return action === 'get'
+        ? 'getManagementAccessToken'
+        : 'setManagementAccessToken';
     default:
       return action === 'get' ? 'getAccessToken' : 'setAccessToken';
   }
-}
+};
 
-export const getAccessToken = async (axios: AxiosStatic, tokenType?: string) => {
+export const getAccessToken = async (
+  axios: AxiosStatic,
+  tokenType?: string
+) => {
   const tokenWorker = getAccessTokenWorker();
 
-   const accessTokenPromise = new Promise((resolve) => {
-      tokenWorker.addEventListener('message', (event) => {
-        const { type, value } = event.data;
-        if (!tokenType && type === 'accessToken') {
-          resolve(value);
-        }
-        if (tokenType === 'management' && type === 'accessTokenManagement') {
-          resolve(value);
-        }
-      });
-      tokenWorker.postMessage({ type: getMessageType('get', tokenType) });
+  const accessTokenPromise = new Promise((resolve) => {
+    tokenWorker.addEventListener('message', (event) => {
+      const { type, value } = event.data;
+      if (!tokenType && type === 'accessToken') {
+        resolve(value);
+      }
+      if (tokenType === 'management' && type === 'accessTokenManagement') {
+        resolve(value);
+      }
     });
+    tokenWorker.postMessage({ type: getMessageType('get', tokenType) });
+  });
 
-    let accessToken = await accessTokenPromise as string;
+  let accessToken = (await accessTokenPromise) as string;
 
-    if (!hasValidToken(accessToken)) {
-      const returnObject = await axios.get(getTokenUrl(tokenType));
-      accessToken = returnObject?.data?.accessToken;
-      if (!!accessToken) tokenWorker.postMessage({ type: getMessageType('set', tokenType), value: accessToken });
-    }
+  if (!hasValidToken(accessToken)) {
+    const returnObject = await axios.get(getTokenUrl(tokenType));
+    accessToken = returnObject?.data?.accessToken;
+    if (!!accessToken)
+      tokenWorker.postMessage({
+        type: getMessageType('set', tokenType),
+        value: accessToken,
+      });
+  }
 
-    return accessToken;
-}
+  return accessToken;
+};

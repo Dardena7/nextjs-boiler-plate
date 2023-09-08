@@ -2,21 +2,22 @@ import {
   useCreateCategory,
   useGetCategories,
   useMoveCategory,
-} from "@/core/repos/categories";
-import Link from "next/link";
-import { useTranslation } from "next-i18next";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CategoryForm } from "../components/CategoryForm";
-import { CategoryFormType } from "@/core/forms/category-form/types";
-import { getDefaultValues } from "@/core/forms/category-form/utils";
-import { getValidationSchema } from "@/core/forms/category-form/validation";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DraggableList } from "@/core/components/DraggableList";
-import { useEffect, useMemo, useState } from "react";
-import { DragItem } from "@/core/repos/types/generic";
-import { getDraggableCategories } from "./utils";
+  useUpdateCategory,
+} from '@/core/repos/categories';
+import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CategoryForm } from '../components/CategoryForm';
+import { CategoryFormType } from '@/core/forms/category-form/types';
+import { getDefaultValues } from '@/core/forms/category-form/utils';
+import { getValidationSchema } from '@/core/forms/category-form/validation';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DraggableList } from '@/core/components/DraggableList';
+import { useEffect, useMemo, useState } from 'react';
+import { DragItem } from '@/core/repos/types/generic';
+import { getDraggableCategories } from './utils';
 
 export const ManageCategories = () => {
   const { data: categories } = useGetCategories();
@@ -30,7 +31,7 @@ export const ManageCategories = () => {
 
   const { getValues, formState, reset, ...methods } = useForm<CategoryFormType>(
     {
-      mode: "onChange",
+      mode: 'onChange',
       defaultValues: getDefaultValues(),
       resolver: yupResolver(getValidationSchema()),
     }
@@ -46,10 +47,7 @@ export const ManageCategories = () => {
   };
 
   const draggableItems = useMemo(
-    () =>
-      getDraggableCategories(categories || [], () =>
-        console.log("$$alex remove")
-      ),
+    () => getDraggableCategories(categories || []),
     [categories]
   );
 
@@ -63,11 +61,11 @@ export const ManageCategories = () => {
 
   return (
     <div className="py-32">
-      <h1 className="mb-32 text-center">{t("pages:manageCategories.title")}</h1>
+      <h1 className="mb-32 text-center">{t('pages:manageCategories.title')}</h1>
       <div className="container-md">
         <div className="mb-32 shadow-3 p-16">
           <h2 className="mb-16">
-            {t("pages:manageCategories.createCategory")}
+            {t('pages:manageCategories.createCategory')}
           </h2>
           <FormProvider
             getValues={getValues}
@@ -79,7 +77,7 @@ export const ManageCategories = () => {
           </FormProvider>
         </div>
         <div className="shadow-3 p-16">
-          <h2 className="mb-16">{t("pages:manageCategories.title")}</h2>
+          <h2 className="mb-16">{t('pages:manageCategories.title')}</h2>
 
           <DndProvider backend={HTML5Backend}>
             {draggableItems && (

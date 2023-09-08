@@ -1,18 +1,18 @@
-import { Button } from "@/core/components/Button";
-import { DraggableList } from "@/core/components/DraggableList";
-import { SingleSelectInput } from "@/core/forms/_components/select-inputs/SingleSelectInput";
-import { useSearchProducts } from "@/core/repos/products";
-import { Category, DragItem } from "@/core/repos/types/generic";
-import clsx from "clsx";
-import { FC, useEffect, useMemo, useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { getDraggableProducts, getFormattedOptions } from "./utils";
+import { Button } from '@/core/components/Button';
+import { DraggableList } from '@/core/components/DraggableList';
+import { SingleSelectInput } from '@/core/forms/_components/select-inputs/SingleSelectInput';
+import { useSearchProducts } from '@/core/repos/products';
+import { Category, DragItem } from '@/core/repos/types/generic';
+import clsx from 'clsx';
+import { FC, useEffect, useMemo, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { getDraggableProducts, getFormattedOptions } from './utils';
 import {
   useAddCategoryProduct,
   useMoveCategoryProduct,
   useRemoveCategoryProduct,
-} from "@/core/repos/categories";
+} from '@/core/repos/categories';
 
 type Props = {
   category: Category;
@@ -25,7 +25,7 @@ export const CategoryProducts: FC<Props> = (props) => {
   const { className, category } = props;
 
   const [addProductValue, setAddProductValue] = useState<Option | null>(null);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const { data: searchedProducts, refetch: searchProducts } =
     useSearchProducts(searchInput);
 
@@ -61,8 +61,8 @@ export const CategoryProducts: FC<Props> = (props) => {
       {/* $$alex ts */}
       <SingleSelectInput
         className="mb-8"
-        instanceId={"add-product"}
-        placeholder={"Add a product"}
+        instanceId={'add-product'}
+        placeholder={'Add a product'}
         value={addProductValue}
         options={getFormattedOptions(searchedProducts || [], category.products)}
         onInputChange={(input) => setSearchInput(input)}
@@ -70,10 +70,10 @@ export const CategoryProducts: FC<Props> = (props) => {
       />
       {/* $$alex ts */}
       <Button
-        label={"Add product"}
-        style={"primary"}
-        variant={"raised"}
-        size={"sm"}
+        label={'Add product'}
+        style={'primary'}
+        variant={'raised'}
+        size={'sm'}
         className="mb-16"
         onClick={() => {
           if (!addProductValue) return;

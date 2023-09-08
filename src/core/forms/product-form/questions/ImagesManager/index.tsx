@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "next-i18next";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useGetProduct } from "@/core/repos/products";
-import clsx from "clsx";
-import { ProductFormType } from "../../types";
-import { FileWrapper } from "@/core/forms/_components/FileWrapper";
+import { FC } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useGetProduct } from '@/core/repos/products';
+import clsx from 'clsx';
+import { ProductFormType } from '../../types';
+import { FileWrapper } from '@/core/forms/_components/FileWrapper';
 
 type Props = {
   className?: string;
@@ -21,7 +21,10 @@ export const ImagesManager: FC<Props> = (props) => {
 
   const { t } = useTranslation();
 
-  const { data: product } = useGetProduct(productId as string, !!productId);
+  const { data: product } = useGetProduct(
+    parseInt(productId as string),
+    !!productId
+  );
 
   const findImage = (imageId: number) => {
     return product?.images.find((image) => image.id === imageId);
