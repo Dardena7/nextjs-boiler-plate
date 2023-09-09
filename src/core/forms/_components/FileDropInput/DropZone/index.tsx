@@ -1,17 +1,25 @@
-import clsx from "clsx";
-import { FC } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
-import styles from "./FileDropInput.module.css";
-import { PreviewSection } from "./PreviewSection";
+import clsx from 'clsx';
+import { FC } from 'react';
+import { FileRejection, useDropzone } from 'react-dropzone';
+import styles from './FileDropInput.module.css';
+import { PreviewSection } from './PreviewSection';
 
 type Props = {
   files: File[];
   onChange: (v: any[]) => void;
   className?: string;
+  dropzoneStyle?: string;
+  showPreview?: boolean;
 };
 
 export const DropZone: FC<Props> = (props) => {
-  const { files, onChange, className } = props;
+  const {
+    files,
+    onChange,
+    className,
+    dropzoneStyle,
+    showPreview = true,
+  } = props;
 
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     if (rejectedFiles.length) return;
@@ -22,7 +30,7 @@ export const DropZone: FC<Props> = (props) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/*": [],
+      'image/*': [],
     },
     maxSize: 2000000, //2MB
     onDrop,
@@ -32,8 +40,9 @@ export const DropZone: FC<Props> = (props) => {
     <div className={clsx(className)}>
       <div
         className={clsx(
+          dropzoneStyle,
           styles.filedrop,
-          "py-64 bg-secondary-100 rounded-lg border border-secondary-300 cursor-pointer"
+          'bg-secondary-100 rounded-lg border border-secondary-300 cursor-pointer'
         )}
         {...getRootProps()}
       >
@@ -51,7 +60,7 @@ export const DropZone: FC<Props> = (props) => {
         )}
       </div>
 
-      {!!files.length ? (
+      {!!files.length && showPreview ? (
         <PreviewSection className="mt-16" files={files} onChange={onChange} />
       ) : null}
     </div>

@@ -37,7 +37,7 @@ export const ManageProduct = () => {
 
   const { isValid } = formState;
 
-  const handleCreateProduct = (args: ProductFormType) => {
+  const handleUpdateProduct = (args: ProductFormType) => {
     updateProduct(args, {
       onSuccess: () => {
         reset();
@@ -45,7 +45,7 @@ export const ManageProduct = () => {
     });
   };
 
-  const handleCreateProductWithImages = (args: ProductFormType) => {
+  const handleUpdateProductWithImages = (args: ProductFormType) => {
     const formData = new FormData();
 
     args.images.forEach((image) => {
@@ -56,19 +56,19 @@ export const ManageProduct = () => {
       onSuccess: (response) => {
         const imageIds = [...args.imageIds, ...response.blobIds];
         setValue('imageIds', imageIds);
-        handleCreateProduct({ ...args, imageIds });
+        handleUpdateProduct({ ...args, imageIds });
       },
       onError: (err) => {
-        toast('Hello', 'success');
+        // $$alex ts
+        toast('Error images', 'error');
       },
     });
   };
 
-  const handleUpdateProduct = async () => {
+  const handleSaveProduct = async () => {
     const args = getValues();
-
-    if (!!args.images.length) return handleCreateProductWithImages(args);
-    return handleCreateProduct(args);
+    if (!!args.images.length) return handleUpdateProductWithImages(args);
+    return handleUpdateProduct(args);
   };
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export const ManageProduct = () => {
             formState={formState}
             {...methods}
           >
-            <ProductForm onSave={handleUpdateProduct} isValid={isValid} />
+            <ProductForm onSave={handleSaveProduct} isValid={isValid} />
           </FormProvider>
         </div>
       </div>

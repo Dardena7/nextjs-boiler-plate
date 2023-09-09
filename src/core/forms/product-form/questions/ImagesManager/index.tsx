@@ -31,7 +31,7 @@ export const ImagesManager: FC<Props> = (props) => {
   };
 
   return (
-    <div className={clsx(className)} data-testid="categories-select">
+    <div className={clsx(className)} data-testid="product-images-manager">
       {/* $$alex ts */}
       <p className="mb-8 bold">Images</p>
       <Controller

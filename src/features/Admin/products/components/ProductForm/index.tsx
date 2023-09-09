@@ -1,12 +1,12 @@
-import { Button } from "@/core/components/Button";
-import { MenuItem, Select } from "@mui/material";
-import { useRouter } from "next/router";
-import { FC, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { CategoriesSelect } from "@/core/forms/product-form/questions/CategoriesSelect";
-import { TranslationInput } from "@/core/forms/_components/TranslationInput";
-import { FileDropInput } from "@/core/forms/_components/FileDropInput";
-import { ImagesManager } from "@/core/forms/product-form/questions/ImagesManager";
+import { Button } from '@/core/components/Button';
+import { MenuItem, Select } from '@mui/material';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { CategoriesSelect } from '@/core/forms/product-form/questions/CategoriesSelect';
+import { TranslationInput } from '@/core/forms/_components/TranslationInput';
+import { FileDropInput } from '@/core/forms/_components/FileDropInput';
+import { ImagesManager } from '@/core/forms/product-form/questions/ImagesManager';
 
 type Props = {
   onSave: () => void;
@@ -42,8 +42,8 @@ export const ProductForm: FC<Props> = (props) => {
 
       <TranslationInput
         className="mb-16"
-        name={"name"}
-        label={t("pages:product.productName")}
+        name={'name'}
+        label={t('pages:product.productName')}
         locale={editLocale}
       />
 
@@ -51,13 +51,13 @@ export const ProductForm: FC<Props> = (props) => {
 
       <ImagesManager className="mb-16" />
 
-      <FileDropInput name={"images"} />
+      <FileDropInput dropzoneStyle="py-64" name={'images'} />
 
       <Button
-        label={t("common:save")}
-        style={"success"}
-        variant={"light"}
-        size={"sm"}
+        label={t('common:save')}
+        style={'success'}
+        variant={'light'}
+        size={'sm'}
         className="mt-16 width-100"
         onClick={onSave}
         disabled={!isValid}

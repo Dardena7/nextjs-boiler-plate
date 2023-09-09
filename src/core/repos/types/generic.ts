@@ -17,6 +17,7 @@ export type Category = {
   active: boolean;
   name?: string;
   products: Product[];
+  images: FileData[];
   translations?: { name: Translation };
 };
 

@@ -18,6 +18,8 @@ import { DraggableList } from '@/core/components/DraggableList';
 import { useEffect, useMemo, useState } from 'react';
 import { DragItem } from '@/core/repos/types/generic';
 import { getDraggableCategories } from './utils';
+import { useUploadFiles } from '@/core/repos/files';
+import { toast } from '@/core/utils/toasts';
 
 export const ManageCategories = () => {
   const { data: categories } = useGetCategories();
@@ -28,22 +30,47 @@ export const ManageCategories = () => {
 
   const { mutate: createCategory } = useCreateCategory();
   const { mutate: moveCategory } = useMoveCategory();
+  const { mutate: uploadFiles } = useUploadFiles();
 
-  const { getValues, formState, reset, ...methods } = useForm<CategoryFormType>(
-    {
+  const { getValues, setValue, formState, reset, ...methods } =
+    useForm<CategoryFormType>({
       mode: 'onChange',
       defaultValues: getDefaultValues(),
       resolver: yupResolver(getValidationSchema()),
-    }
-  );
+    });
 
-  const handleCreateCategory = () => {
-    const args = getValues();
+  const handleCreateCategory = (args: CategoryFormType) => {
     createCategory(args, {
       onSuccess: () => {
         reset();
       },
     });
+  };
+
+  const handleCreateCategoryWithBanner = (args: CategoryFormType) => {
+    const formData = new FormData();
+    const { images } = args;
+    const image = images[images.length - 1];
+
+    formData.append('files[]', image);
+
+    uploadFiles(formData, {
+      onSuccess: (response) => {
+        const imageIds = response.blobIds;
+        setValue('imageIds', imageIds);
+        handleCreateCategory({ ...args, imageIds });
+      },
+      onError: () => {
+        // $$alex ts
+        toast('Banner error', 'error');
+      },
+    });
+  };
+
+  const handleSaveCategory = async () => {
+    const args = getValues();
+    if (!!args.images.length) return handleCreateCategoryWithBanner(args);
+    return handleCreateCategory(args);
   };
 
   const draggableItems = useMemo(
@@ -70,10 +97,11 @@ export const ManageCategories = () => {
           <FormProvider
             getValues={getValues}
             reset={reset}
+            setValue={setValue}
             formState={formState}
             {...methods}
           >
-            <CategoryForm onSave={handleCreateCategory} />
+            <CategoryForm onSave={handleSaveCategory} />
           </FormProvider>
         </div>
         <div className="shadow-3 p-16">
