@@ -25,6 +25,7 @@ export type Product = {
   id: number;
   active: boolean;
   name?: string;
+  price: string;
   categories: Category[];
   images: FileData[];
   translations?: { name: Translation };
@@ -33,4 +34,21 @@ export type Product = {
 export type DragItem = {
   index: number;
   id: number;
+};
+
+export type CartItem = {
+  product: Product;
+  quantity: number;
+  total: string;
+};
+
+export type Cart = {
+  id: number;
+  cartItems: CartItem[];
+  total: string;
+};
+
+export type GuestCart = {
+  cartItems: Record<number, CartItem>;
+  total: string;
 };

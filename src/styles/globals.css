@@ -92,6 +92,10 @@ button {
   text-align: center;
 }
 
+.text-end {
+  text-align: end;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -104,6 +108,27 @@ button {
   cursor: grab;
 }
 
+.width-20 {
+  width: 20%;
+}
+.width-25 {
+  width: 25%;
+}
+.width-33 {
+  width: 33%;
+}
+.width-40 {
+  width: 40%;
+}
+.width-50 {
+  width: 50%;
+}
+.width-75 {
+  width: 75%;
+}
+.width-80 {
+  width: 80%;
+}
 .width-100 {
   width: 100%;
 }
@@ -116,6 +141,18 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
 }
 
 .display-inline-block {

@@ -2,20 +2,18 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { GetServerSideProps } from 'next';
 import { UserNavigation } from '@/features/navigations/UserNavigation';
-import { Home } from '@/features/Home';
+import { Category } from '@/features/Category';
 
-type Props = {};
-
-export default function HomePage() {
+export default function ManageProductPage() {
   return (
     <>
       <UserNavigation />
-      <Home />
+      <Category />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale } = ctx;
 
   return {

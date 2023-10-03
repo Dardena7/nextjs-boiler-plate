@@ -4,7 +4,6 @@ import { i18n } from 'next-i18next';
 import snakify from 'snakify-ts';
 import { getAccessToken } from './utils';
 
-
 // Create new instance and configure
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL as string,
@@ -19,8 +18,8 @@ axiosInstance.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    config.headers["Accept-Language"] = i18n?.language;
-    config.data = snakify(config.data)
+    config.headers['Accept-Language'] = i18n?.language;
+    config.data = snakify(config.data);
 
     return config;
   },
@@ -45,11 +44,15 @@ axiosInstance.interceptors.response.use(
 );
 
 export const api = {
-  get: (url: string, config?: AxiosRequestConfig) => axiosInstance.get(url, config),
-  post: (url: string, data: unknown, config?: AxiosRequestConfig) => axiosInstance.post(url, data, config),
-  put: (url: string, data: unknown, config?: AxiosRequestConfig) => axiosInstance.put(url, data, config),
-  delete: (url: string, config?: AxiosRequestConfig) => axiosInstance.delete(url, config),
-  patch: (url: string, data: unknown, config?: AxiosRequestConfig) => axiosInstance.patch(url, data, config),
+  get: (url: string, config?: AxiosRequestConfig) =>
+    axiosInstance.get(url, config),
+  post: (url: string, data: unknown, config?: AxiosRequestConfig) =>
+    axiosInstance.post(url, data, config),
+  put: (url: string, data: unknown, config?: AxiosRequestConfig) =>
+    axiosInstance.put(url, data, config),
+  delete: (url: string, config?: AxiosRequestConfig) =>
+    axiosInstance.delete(url, config),
+  patch: (url: string, data: unknown, config?: AxiosRequestConfig) =>
+    axiosInstance.patch(url, data, config),
   head: (url: string) => axiosInstance.head(url),
 };
-

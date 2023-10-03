@@ -82,7 +82,7 @@ export const useGetCategories = () => {
 
 export const useGetCategory = (categoryId: number, enabled = false) => {
   return useQuery(
-    ['get-category', categoryId],
+    ['get-category', categoryId, i18n?.language],
     () => {
       return categoriesRepo.getCategory(categoryId);
     },

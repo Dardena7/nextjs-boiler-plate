@@ -1,5 +1,5 @@
 import { Button } from '@/core/components/Button';
-import { MenuItem, Select } from '@mui/material';
+import { Input, MenuItem, Select, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -7,6 +7,7 @@ import { CategoriesSelect } from '@/core/forms/product-form/questions/Categories
 import { TranslationInput } from '@/core/forms/_components/TranslationInput';
 import { FileDropInput } from '@/core/forms/_components/FileDropInput';
 import { ImagesManager } from '@/core/forms/product-form/questions/ImagesManager';
+import { PriceInput } from '@/core/forms/_components/PriceInput';
 
 type Props = {
   onSave: () => void;
@@ -48,6 +49,9 @@ export const ProductForm: FC<Props> = (props) => {
       />
 
       <CategoriesSelect className="mb-16" />
+
+      {/* $$alex ts */}
+      <PriceInput name={'price'} label={'Price'} />
 
       <ImagesManager className="mb-16" />
 

@@ -6,6 +6,7 @@ import { Product } from './types/generic';
 
 type CreateProductArgs = {
   name: Record<string, string>;
+  price: string;
   categories: number[];
 };
 
@@ -15,13 +16,27 @@ type UpdateProductArgs = {
   active?: boolean;
 };
 
-const productsRepo = {
+export const cacheKey = {
+  getProducts: (locale: string) => ['get-products', locale],
+  getProduct: (productId: number, locale: string) => [
+    'get-product',
+    productId,
+    locale,
+  ],
+};
+
+export const urls = {
+  getProducts: () => '/products',
+  getProduct: (productId: number) => `/products/${productId}`,
+};
+
+export const productsRepo = {
   getProduct: async (productId: number): Promise<Product> => {
-    const response = await api.get(`/products/${productId}`);
+    const response = await api.get(urls.getProduct(productId));
     return response.data;
   },
   getProducts: async (): Promise<Product[]> => {
-    const response = await api.get('/products');
+    const response = await api.get(urls.getProducts());
     return response.data;
   },
   createProduct: async (args: CreateProductArgs): Promise<Product> => {
@@ -46,14 +61,17 @@ const productsRepo = {
 };
 
 export const useGetProducts = () => {
-  return useQuery(['get-products', i18n?.language], () => {
+  const queryClient = useQueryClient();
+
+  // Log the entire cache
+  return useQuery(cacheKey.getProducts(i18n?.language || 'en'), () => {
     return productsRepo.getProducts();
   });
 };
 
 export const useGetProduct = (productId: number, enabled = false) => {
   return useQuery(
-    ['get-product', productId],
+    cacheKey.getProduct(productId, i18n?.language || 'en'),
     () => {
       return productsRepo.getProduct(productId);
     },

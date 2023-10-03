@@ -31,7 +31,12 @@ export const ManageProduct = () => {
   const { getValues, setValue, formState, reset, ...methods } =
     useForm<ProductFormType>({
       mode: 'onChange',
-      defaultValues: { name: undefined, categories: [], imageIds: [] },
+      defaultValues: {
+        name: undefined,
+        price: '',
+        categories: [],
+        imageIds: [],
+      },
       resolver: yupResolver(getValidationSchema()),
     });
 

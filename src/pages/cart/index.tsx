@@ -2,20 +2,21 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { GetServerSideProps } from 'next';
 import { UserNavigation } from '@/features/navigations/UserNavigation';
-import { Home } from '@/features/Home';
+import { Cart } from '@/features/Cart';
+import { useUserProfile } from '@/core/hooks/use-user-profile';
+import { CartGuest } from '@/features/CartGuest';
 
-type Props = {};
-
-export default function HomePage() {
+export default function CartPage() {
+  const { oauthUser } = useUserProfile();
   return (
     <>
       <UserNavigation />
-      <Home />
+      {oauthUser ? <Cart /> : <CartGuest />}
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale } = ctx;
 
   return {
