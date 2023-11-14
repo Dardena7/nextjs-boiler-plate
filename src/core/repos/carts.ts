@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { api } from '../api/api';
 import { toast } from '../utils/toasts';
 import { i18n } from 'next-i18next';
-import { Cart } from './types/generic';
+import { Cart } from '@/core/types/generic';
 
 type AddProductArgs = {
   productId: number;
@@ -15,51 +15,67 @@ type UpdateQuantityArgs = {
 type RemoveProductArgs = {
   productId: number;
 };
-type MergeCartArgs = {
-  cartItems: {
-    productId: number;
-    quantity: number;
-  }[];
-};
 
 const cartsRepo = {
-  getCart: async (): Promise<Cart> => {
-    const response = await api.get('/carts');
+  getCart: async (cartUuid: string | null): Promise<Cart> => {
+    const response = await api.get('/carts?uuid=' + cartUuid);
     return response.data;
   },
-  addToCart: async (args: AddProductArgs): Promise<{ success: boolean }> => {
-    const response = await api.patch('/carts/add_to_cart', args);
+  addToCart: async (
+    args: AddProductArgs,
+    cartUuid: string | null
+  ): Promise<{ success: boolean }> => {
+    const response = await api.patch('/carts/add_to_cart', {
+      ...args,
+      uuid: cartUuid,
+    });
     return response.data;
   },
   updateQuantity: async (
-    args: UpdateQuantityArgs
+    args: UpdateQuantityArgs,
+    cartUuid: string | null
   ): Promise<{ success: boolean }> => {
-    const response = await api.patch('/carts/update_quantity', args);
+    const response = await api.patch('/carts/update_quantity', {
+      ...args,
+      uuid: cartUuid,
+    });
     return response.data;
   },
   removeFromCart: async (
-    args: RemoveProductArgs
+    args: RemoveProductArgs,
+    cartUuid: string | null
   ): Promise<{ success: boolean }> => {
-    const response = await api.patch('/carts/remove_from_cart', args);
-    return response.data;
-  },
-  mergeCart: async (args: MergeCartArgs): Promise<{ success: boolean }> => {
-    const response = await api.patch('/carts/merge_cart', args);
+    const response = await api.patch('/carts/remove_from_cart', {
+      ...args,
+      uuid: cartUuid,
+    });
     return response.data;
   },
 };
 
 export const useGetCart = () => {
-  return useQuery(['get-cart', i18n?.language], () => {
-    return cartsRepo.getCart();
-  });
+  return useQuery(
+    ['get-cart', i18n?.language],
+    () => {
+      const cartUuid = localStorage.getItem('cartUuid');
+      return cartsRepo.getCart(cartUuid);
+    },
+    {
+      onSuccess: (data) => {
+        const { uuid } = data;
+        if (!uuid) return;
+        localStorage.setItem('cartUuid', uuid.toString());
+      },
+    }
+  );
 };
 
 export const useAddToCart = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (args: AddProductArgs) => {
-      return cartsRepo.addToCart(args);
+      const cartUuid = localStorage.getItem('cartUuid');
+      return cartsRepo.addToCart(args, cartUuid);
     },
     {
       onSuccess: () => {
@@ -79,7 +95,8 @@ export const useUpdateQuantity = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (args: UpdateQuantityArgs) => {
-      return cartsRepo.updateQuantity(args);
+      const cartUuid = localStorage.getItem('cartUuid');
+      return cartsRepo.updateQuantity(args, cartUuid);
     },
     {
       onSuccess: () => {
@@ -97,25 +114,8 @@ export const useRemoveFromCart = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (args: RemoveProductArgs) => {
-      return cartsRepo.removeFromCart(args);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['get-cart']);
-      },
-      onError: () => {
-        //$$alex ts
-        toast('An error occured!', 'error');
-      },
-    }
-  );
-};
-
-export const useMergeCart = () => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (args: MergeCartArgs) => {
-      return cartsRepo.mergeCart(args);
+      const cartUuid = localStorage.getItem('cartUuid');
+      return cartsRepo.removeFromCart(args, cartUuid);
     },
     {
       onSuccess: () => {

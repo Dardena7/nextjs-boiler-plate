@@ -1,4 +1,4 @@
-import { Category } from '@/core/repos/types/generic';
+import { Category } from '@/core/types/generic';
 import { CategoryItem } from './CategoryItem';
 
 export const getDraggableCategories = (categories: Category[]) => {

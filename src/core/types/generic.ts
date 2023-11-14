@@ -1,6 +1,8 @@
 export type Translation = Record<string, string>;
 export type FileData = { id: number; url: string };
 
+export type UserRole = 'superadmin' | 'admin' | 'manager' | 'user';
+
 export type User = {
   id: number;
   firstname: string;
@@ -46,9 +48,14 @@ export type Cart = {
   id: number;
   cartItems: CartItem[];
   total: string;
+  uuid: string | null;
 };
 
-export type GuestCart = {
-  cartItems: Record<number, CartItem>;
-  total: string;
+export type Address = {
+  id: number;
+  completeName: string;
+  country: string;
+  street: string;
+  city: string;
+  zip: string;
 };

@@ -28,17 +28,18 @@ export const ManageProduct = () => {
   );
   const { mutate: uploadFiles } = useUploadFiles();
 
-  const { getValues, setValue, formState, reset, ...methods } =
-    useForm<ProductFormType>({
-      mode: 'onChange',
-      defaultValues: {
-        name: undefined,
-        price: '',
-        categories: [],
-        imageIds: [],
-      },
-      resolver: yupResolver(getValidationSchema()),
-    });
+  const { ...methods } = useForm<ProductFormType>({
+    mode: 'onChange',
+    defaultValues: {
+      name: undefined,
+      price: '',
+      categories: [],
+      imageIds: [],
+    },
+    resolver: yupResolver(getValidationSchema()),
+  });
+
+  const { getValues, setValue, formState, reset } = methods;
 
   const { isValid } = formState;
 
@@ -103,13 +104,7 @@ export const ManageProduct = () => {
           <h2 className="mt-32 mb-16">
             {t('pages:manageProduct.editProduct')}
           </h2>
-          <FormProvider
-            getValues={getValues}
-            setValue={setValue}
-            reset={reset}
-            formState={formState}
-            {...methods}
-          >
+          <FormProvider {...methods}>
             <ProductForm onSave={handleSaveProduct} isValid={isValid} />
           </FormProvider>
         </div>

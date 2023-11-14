@@ -2,7 +2,7 @@ import { FC } from 'react';
 import clsx from 'clsx';
 import { useDeleteCategory, useUpdateCategory } from '@/core/repos/categories';
 import Link from 'next/link';
-import { Category } from '@/core/repos/types/generic';
+import { Category } from '@/core/types/generic';
 import { CancelTwoTone } from '@mui/icons-material';
 
 type Props = {

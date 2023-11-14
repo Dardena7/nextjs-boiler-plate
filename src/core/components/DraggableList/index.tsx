@@ -1,9 +1,9 @@
-import type { FC, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import type { FC, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Card } from "./Card";
-import clsx from "clsx";
-import { DragItem } from "@/core/repos/types/generic";
+import { Card } from './Card';
+import clsx from 'clsx';
+import { DragItem } from '@/core/types/generic';
 
 export interface Item {
   id: number;

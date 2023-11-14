@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import clsx from 'clsx';
-import { Product } from '@/core/repos/types/generic';
+import { Product } from '@/core/types/generic';
 import Link from 'next/link';
 import { CancelTwoTone } from '@mui/icons-material';
 import { useDeleteProduct, useUpdateProduct } from '@/core/repos/products';

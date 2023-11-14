@@ -39,6 +39,10 @@
   --neutral-color-900: #000000;
 }
 
+#__next {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -149,6 +153,10 @@ button {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .flex {
@@ -666,6 +674,10 @@ button {
 
 .rounded-xl {
   border-radius: 1rem;
+}
+
+.rounded {
+  border-radius: 2rem;
 }
 
 /* BORDERS */

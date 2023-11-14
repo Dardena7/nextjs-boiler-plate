@@ -28,12 +28,13 @@ export const ManageCategory = () => {
     parseInt(categoryId as string)
   );
 
-  const { getValues, setValue, formState, reset, ...methods } =
-    useForm<CategoryFormType>({
-      mode: 'onChange',
-      defaultValues: { name: undefined, products: [], imageIds: [] },
-      resolver: yupResolver(getValidationSchema()),
-    });
+  const { ...methods } = useForm<CategoryFormType>({
+    mode: 'onChange',
+    defaultValues: { name: undefined, products: [], imageIds: [] },
+    resolver: yupResolver(getValidationSchema()),
+  });
+
+  const { getValues, setValue, reset } = methods;
 
   const { mutate: uploadFiles } = useUploadFiles();
 
@@ -100,13 +101,7 @@ export const ManageCategory = () => {
             {t('pages:manageCategory.editCategory')}
           </h2>
 
-          <FormProvider
-            getValues={getValues}
-            setValue={setValue}
-            reset={reset}
-            formState={formState}
-            {...methods}
-          >
+          <FormProvider {...methods}>
             <CategoryForm onSave={handleSaveCategory} />
           </FormProvider>
         </div>

@@ -16,7 +16,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableList } from '@/core/components/DraggableList';
 import { useEffect, useMemo, useState } from 'react';
-import { DragItem } from '@/core/repos/types/generic';
+import { DragItem } from '@/core/types/generic';
 import { getDraggableCategories } from './utils';
 import { useUploadFiles } from '@/core/repos/files';
 import { toast } from '@/core/utils/toasts';
@@ -32,12 +32,13 @@ export const ManageCategories = () => {
   const { mutate: moveCategory } = useMoveCategory();
   const { mutate: uploadFiles } = useUploadFiles();
 
-  const { getValues, setValue, formState, reset, ...methods } =
-    useForm<CategoryFormType>({
-      mode: 'onChange',
-      defaultValues: getDefaultValues(),
-      resolver: yupResolver(getValidationSchema()),
-    });
+  const { ...methods } = useForm<CategoryFormType>({
+    mode: 'onChange',
+    defaultValues: getDefaultValues(),
+    resolver: yupResolver(getValidationSchema()),
+  });
+
+  const { getValues, setValue, reset } = methods;
 
   const handleCreateCategory = (args: CategoryFormType) => {
     createCategory(args, {
@@ -94,13 +95,7 @@ export const ManageCategories = () => {
           <h2 className="mb-16">
             {t('pages:manageCategories.createCategory')}
           </h2>
-          <FormProvider
-            getValues={getValues}
-            reset={reset}
-            setValue={setValue}
-            formState={formState}
-            {...methods}
-          >
+          <FormProvider {...methods}>
             <CategoryForm onSave={handleSaveCategory} />
           </FormProvider>
         </div>

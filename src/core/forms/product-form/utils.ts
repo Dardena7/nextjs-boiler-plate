@@ -1,4 +1,4 @@
-import { Product } from '@/core/repos/types/generic';
+import { Product } from '@/core/types/generic';
 
 const getPrice = (price?: string) => {
   if (!price) return '';

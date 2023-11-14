@@ -1,9 +1,9 @@
-import { Loader } from "@/core/components/Loader";
-import { User } from "@/core/repos/types/generic";
-import { FC, useState } from "react";
-import { EditUserInformation } from "./EditUserInformation";
-import { ShowUserInformation } from "./ShowUserInformation";
-import { useTranslation } from "next-i18next";
+import { Loader } from '@/core/components/Loader';
+import { User } from '@/core/types/generic';
+import { FC, useState } from 'react';
+import { EditUserInformation } from './EditUserInformation';
+import { ShowUserInformation } from './ShowUserInformation';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
   user?: User;
@@ -17,7 +17,7 @@ export const UserInformation: FC<Props> = (props) => {
 
   return (
     <div className="p-16 border border-secondary-300 rounded-sm">
-      <h2 className="mb-32">{t("pages:account.information")}</h2>
+      <h2 className="mb-32">{t('pages:account.information')}</h2>
 
       {!user || isLoadingUser ? (
         <div className="width-100 layout-column layout-align-center-center">

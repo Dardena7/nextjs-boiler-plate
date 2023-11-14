@@ -1,10 +1,10 @@
-import type { Identifier, XYCoord } from "dnd-core";
-import type { FC, ReactNode } from "react";
-import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import type { Identifier, XYCoord } from 'dnd-core';
+import type { FC, ReactNode } from 'react';
+import { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
-import { DragIndicator } from "@mui/icons-material";
-import { DragItem } from "@/core/repos/types/generic";
+import { DragIndicator } from '@mui/icons-material';
+import { DragItem } from '@/core/types/generic';
 
 export interface CardProps {
   id: any;
@@ -23,7 +23,7 @@ export const Card: FC<CardProps> = (props) => {
     void,
     { handlerId: Identifier | null }
   >({
-    accept: "CARD",
+    accept: 'CARD',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -83,7 +83,7 @@ export const Card: FC<CardProps> = (props) => {
   });
 
   const [{ isDragging }, drag, preview] = useDrag({
-    type: "CARD",
+    type: 'CARD',
     item: () => {
       return { id, index };
     },
@@ -103,7 +103,7 @@ export const Card: FC<CardProps> = (props) => {
       style={{ opacity }}
       data-handler-id={handlerId}
     >
-      <div ref={ref} style={{ cursor: "move" }} className="mr-16">
+      <div ref={ref} style={{ cursor: 'move' }} className="mr-16">
         <DragIndicator />
       </div>
       <div className="width-100">{children}</div>

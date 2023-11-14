@@ -8,7 +8,6 @@ import { appWithTranslation } from 'next-i18next';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-import { CartMerger } from '@/core/components/cart/CartMerger';
 
 export const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(
@@ -25,12 +24,10 @@ export const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <CartMerger>
-          <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
-            <ToastContainer />
-          </ThemeProvider>
-        </CartMerger>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </ThemeProvider>
       </UserProvider>
     </QueryClientProvider>
   );

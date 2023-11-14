@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import type { Product } from '@/core/repos/types/generic';
+import type { Product } from '@/core/types/generic';
 import * as S from './styles';
 import clsx from 'clsx';
 import { Button } from '../Button';
 import { priceFormatter } from '@/core/utils';
 import { useAddToCart } from '@/core/repos/carts';
-import { useUserProfile } from '@/core/hooks/use-user-profile';
-import { addToGuestCart } from './utils';
 
 type Props = {
   className?: string;
@@ -17,8 +15,6 @@ type Props = {
 export const ProductCard: FC<Props> = (props) => {
   const { product, className } = props;
 
-  const { oauthUser } = useUserProfile();
-
   const { name, price, categories, images } = product;
 
   const imageSrc = images?.[0]?.url || '/images/product-placeholder.png';
@@ -26,8 +22,7 @@ export const ProductCard: FC<Props> = (props) => {
   const { mutate: addToCart } = useAddToCart();
 
   const handleAddToCart = (product: Product, quantity: number) => {
-    if (oauthUser) return addToCart({ productId: product.id, quantity });
-    addToGuestCart(product, quantity);
+    return addToCart({ productId: product.id, quantity });
   };
 
   return (

@@ -1,5 +1,5 @@
 import { Button } from '@/core/components/Button';
-import { Product } from '@/core/repos/types/generic';
+import { Product } from '@/core/types/generic';
 import { CancelTwoTone } from '@mui/icons-material';
 import clsx from 'clsx';
 import Link from 'next/link';

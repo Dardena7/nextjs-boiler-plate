@@ -13,12 +13,16 @@ export const Home: FC<Props> = (props) => {
   const { data: products } = useGetProducts();
 
   return (
-    <main className={clsx(className, 'bg-secondary-100')} data-testid="home">
-      <div className="container-lg layout-row layout-align-start layout-wrap">
-        {products?.map((product, index) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
-      </div>
+    <main
+      className={clsx(
+        className,
+        'p-32 container-lg layout-row layout-align-start layout-wrap'
+      )}
+      data-testid="home"
+    >
+      {products?.map((product, index) => {
+        return <ProductCard key={product.id} product={product} />;
+      })}
     </main>
   );
 };

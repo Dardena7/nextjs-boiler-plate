@@ -2,7 +2,7 @@ import { i18n } from 'next-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { api } from '../api/api';
 import { toast } from '../utils/toasts';
-import { Product } from './types/generic';
+import { Product } from '@/core/types/generic';
 
 type CreateProductArgs = {
   name: Record<string, string>;

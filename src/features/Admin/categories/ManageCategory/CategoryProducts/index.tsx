@@ -2,7 +2,7 @@ import { Button } from '@/core/components/Button';
 import { DraggableList } from '@/core/components/DraggableList';
 import { SingleSelectInput } from '@/core/forms/_components/select-inputs/SingleSelectInput';
 import { useSearchProducts } from '@/core/repos/products';
-import { Category, DragItem } from '@/core/repos/types/generic';
+import { Category, DragItem } from '@/core/types/generic';
 import clsx from 'clsx';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { DndProvider } from 'react-dnd';

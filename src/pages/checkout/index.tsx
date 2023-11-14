@@ -1,14 +1,13 @@
+import { Checkout } from '@/features/Checkout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
-import { GetServerSideProps } from 'next';
 import { UserNavigation } from '@/features/navigations/UserNavigation';
-import { Cart } from '@/features/Cart';
+import { GetServerSideProps } from 'next';
 
-export default function CartPage() {
+export default function AccountPage() {
   return (
     <>
       <UserNavigation />
-      <Cart />
+      <Checkout />
     </>
   );
 }

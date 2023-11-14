@@ -17,12 +17,12 @@ export const ManageProducts = () => {
   const { mutate: createProduct } = useCreateProduct();
   const { mutate: uploadFiles } = useUploadFiles();
 
-  const { getValues, setValue, formState, reset, handleSubmit, ...methods } =
-    useForm<ProductFormType>({
-      mode: 'onChange',
-      defaultValues: getDefaultValues(),
-      resolver: yupResolver(getValidationSchema()),
-    });
+  const { ...methods } = useForm<ProductFormType>({
+    mode: 'onChange',
+    defaultValues: getDefaultValues(),
+    resolver: yupResolver(getValidationSchema()),
+  });
+  const { getValues, setValue, formState, reset, handleSubmit } = methods;
 
   const { isValid } = formState;
 
@@ -63,14 +63,7 @@ export const ManageProducts = () => {
       <div className="container-md">
         <div className="mb-32 shadow-3 p-16">
           <h2 className="mb-16">{t('pages:manageProducts.createProduct')}</h2>
-          <FormProvider
-            handleSubmit={handleSubmit}
-            getValues={getValues}
-            setValue={setValue}
-            reset={reset}
-            formState={formState}
-            {...methods}
-          >
+          <FormProvider {...methods}>
             <ProductForm onSave={handleSaveProduct} isValid={isValid} />
           </FormProvider>
         </div>

@@ -1,17 +1,17 @@
-import { Button } from "@/core/components/Button";
-import { getValidationSchema } from "@/core/forms/user-form/validation";
-import clsx from "clsx";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { TermsAndConditionsQuestion } from "@/core/forms/user-form/questions/TermsAndConditionsQuestion";
-import { getDefaultValues } from "@/core/forms/user-form/utils";
-import { useTranslation } from "next-i18next";
+import { Button } from '@/core/components/Button';
+import { getValidationSchema } from '@/core/forms/user-form/validation';
+import clsx from 'clsx';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { TermsAndConditionsQuestion } from '@/core/forms/user-form/questions/TermsAndConditionsQuestion';
+import { getDefaultValues } from '@/core/forms/user-form/utils';
+import { useTranslation } from 'next-i18next';
 
-import type { FC } from "react";
-import type { User } from "@/core/repos/types/generic";
-import type { UserForm } from "@/core/forms/user-form/types";
-import { useUpdateUser } from "@/core/repos/users";
-import { TextInput } from "@/core/forms/_components/TextInput";
+import type { FC } from 'react';
+import type { User } from '@/core/types/generic';
+import type { UserForm } from '@/core/forms/user-form/types';
+import { useUpdateUser } from '@/core/repos/users';
+import { TextInput } from '@/core/forms/_components/TextInput';
 
 type Props = {
   user: User;
@@ -24,11 +24,13 @@ export const EditUserInformation: FC<Props> = (props) => {
 
   const { t } = useTranslation();
 
-  const { getValues, formState, ...methods } = useForm<UserForm>({
-    mode: "onChange",
+  const { ...methods } = useForm<UserForm>({
+    mode: 'onChange',
     defaultValues: getDefaultValues(user),
     resolver: yupResolver(getValidationSchema()),
   });
+
+  const { getValues, formState } = methods;
 
   const { mutate: updateUser, isLoading: isLoadingUpdateUser } = useUpdateUser(
     user.auth0Id
@@ -48,15 +50,15 @@ export const EditUserInformation: FC<Props> = (props) => {
 
   return (
     <div className={clsx(className)}>
-      <FormProvider formState={formState} getValues={getValues} {...methods}>
+      <FormProvider {...methods}>
         <TextInput
           name="firstname"
-          label={t("pages:account.firstname")}
+          label={t('pages:account.firstname')}
           className="mb-16"
         />
         <TextInput
           name="lastname"
-          label={t("pages:account.lastname")}
+          label={t('pages:account.lastname')}
           className="mb-16"
         />
         {!user.termsAndConditions && <TermsAndConditionsQuestion />}
@@ -65,7 +67,7 @@ export const EditUserInformation: FC<Props> = (props) => {
       <div className="mt-32 layout-row layout-align-end">
         <Button
           className="mr-8"
-          label={t("common:cancel")}
+          label={t('common:cancel')}
           style="secondary"
           variant="light"
           size="sm"
@@ -76,7 +78,7 @@ export const EditUserInformation: FC<Props> = (props) => {
           loading={isLoadingUpdateUser}
         />
         <Button
-          label={t("common:save")}
+          label={t('common:save')}
           style="success"
           variant="light"
           size="sm"
