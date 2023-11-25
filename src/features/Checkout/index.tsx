@@ -1,7 +1,5 @@
 import { Button } from '@/core/components/Button';
 import { Loader } from '@/core/components/Loader';
-import { RoundedContainer } from '@/core/components/RoundedContainer';
-import { AddressForm } from '@/core/forms/AddressForm';
 import { useUserProfile } from '@/core/hooks/use-user-profile';
 import { Address } from '@/core/types/generic';
 import { ArrowBack } from '@mui/icons-material';
@@ -12,6 +10,9 @@ import { IdentificationStep } from './_components';
 import { DeliveryStep } from './_components/DeliveryStep';
 import { PaymentMethodStep } from './_components/PaymentMethodStep';
 import { TermsAndConditionsStep } from './_components/TermsAndConditionsStep';
+import { useCreateOrder } from '@/core/repos/orders';
+import { useGetCart } from '@/core/repos/carts';
+import { useRouter } from 'next/router';
 
 type Props = {
   className?: string;
@@ -19,6 +20,7 @@ type Props = {
 
 export const Checkout: FC<Props> = (props) => {
   const { className } = props;
+  const router = useRouter();
 
   const { userProfile: user, isLoading: isLoadingUser } = useUserProfile();
   const { t } = useTranslation();
@@ -28,11 +30,31 @@ export const Checkout: FC<Props> = (props) => {
   const [paymentMethod, setPaymentMethod] = useState<string>();
   const [guestEmail, setGuestEmail] = useState<string>();
 
+  const { data: cart, isLoading: isLoadingCart } = useGetCart();
+  // $$alex todo: loader create order
+  const { mutate: createOrder, isLoading: isLoadingCreateOrder } =
+    useCreateOrder();
+
+  const handleCreateOrder = () => {
+    if (!cart || !deliveryAddress) return;
+
+    const args = {
+      cartId: cart.id,
+      address: deliveryAddress,
+    };
+
+    createOrder(args, {
+      onSuccess: (response) => {
+        router.push(`/order-confirmation/${response.order.uuid}`);
+      },
+    });
+  };
+
   useEffect(() => {
     if (user) setCurrentStep(2);
   }, [user]);
 
-  if (isLoadingUser)
+  if (isLoadingUser || isLoadingCart)
     return (
       <div className="py-32 px-32 container-lg border-secondary-300 height-100">
         <Loader size={'md'} />
@@ -57,7 +79,7 @@ export const Checkout: FC<Props> = (props) => {
           style={'secondary'}
           variant={'outlined'}
           size={'sm'}
-          onClick={() => window.open('/cart', '_self')}
+          onClick={() => router.push('/cart')}
         />
 
         {/* STEP 1 */}
@@ -106,7 +128,7 @@ export const Checkout: FC<Props> = (props) => {
           variant={'light'}
           size={'lg'}
           disabled={currentStep !== 5}
-          onClick={() => window.open('/order', '_self')}
+          onClick={handleCreateOrder}
         />
       </div>
     </main>

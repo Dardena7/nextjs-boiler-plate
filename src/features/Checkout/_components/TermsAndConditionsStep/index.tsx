@@ -27,7 +27,7 @@ export const TermsAndConditionsStep: FC<Props> = (props) => {
       setCurrentStep={setCurrentStep}
       stepNumber={STEP_NUMBER}
     >
-      <div data-testid="terms-and-conditions-step">
+      <div className="mt-16" data-testid="terms-and-conditions-step">
         {currentStep === STEP_NUMBER && (
           <div>
             {/* $$alex ts */}

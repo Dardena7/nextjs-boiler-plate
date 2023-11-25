@@ -4,6 +4,7 @@ import { User } from '@/core/types/generic';
 import { Step } from '../Step';
 import { TextField } from '@mui/material';
 import { Button } from '@/core/components/Button';
+import { useRouter } from 'next/router';
 
 type Props = {
   user?: User;
@@ -26,6 +27,7 @@ export const IdentificationStep: FC<Props> = (props) => {
     className,
   } = props;
 
+  const router = useRouter();
   const [isGuest, setIsGuest] = useState(false);
 
   return (
@@ -44,11 +46,11 @@ export const IdentificationStep: FC<Props> = (props) => {
         {currentStep === STEP_NUMBER && (
           <>
             {!user && !isGuest && (
-              // $$alex ts
+              // $$alex todo: and redirect to checkout after login
               <div className="mt-16">
                 <span
                   className="bold text-underline text-primary-500 cursor-pointer"
-                  onClick={() => window.open('/api/auth/logout', '_self')}
+                  onClick={() => router.push('/api/auth/login')}
                 >
                   Sign in
                 </span>
@@ -86,7 +88,7 @@ export const IdentificationStep: FC<Props> = (props) => {
                     I prefer to&nbsp;
                     <span
                       className="bold text-underline text-primary-500 cursor-pointer"
-                      onClick={() => window.open('/api/auth/logout', '_self')}
+                      onClick={() => router.push('/api/auth/login')}
                     >
                       sign in
                     </span>

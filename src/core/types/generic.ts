@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 export type Translation = Record<string, string>;
 export type FileData = { id: number; url: string };
 
@@ -58,4 +60,20 @@ export type Address = {
   street: string;
   city: string;
   zip: string;
+};
+
+export type OrderItem = {
+  product: Product;
+  price: string;
+  quantity: number;
+  total: string;
+};
+
+export type Order = {
+  id: number;
+  uuid: string;
+  createdAt: string;
+  address: Address;
+  orderItems: OrderItem[];
+  total: string;
 };

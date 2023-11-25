@@ -8,6 +8,7 @@ import {
 import { Button } from '@/core/components/Button';
 import { Loader } from '@/core/components/Loader';
 import { CartSummary } from './CartSummary';
+import { useRouter } from 'next/router';
 
 type Props = {
   className?: string;
@@ -15,6 +16,7 @@ type Props = {
 
 export const Cart: FC<Props> = (props) => {
   const { className } = props;
+  const router = useRouter();
 
   const { data: cart, isLoading } = useGetCart();
 
@@ -39,7 +41,7 @@ export const Cart: FC<Props> = (props) => {
     );
 
   return (
-    <main className={clsx(className)} data-testid="cart-page">
+    <main className={clsx(className, 'height-100')} data-testid="cart-page">
       <div className="p-32 container-lg height-100">
         {/* $$alex ts */}
         <h1 className="mb-32 text-center">Cart</h1>
@@ -65,7 +67,7 @@ export const Cart: FC<Props> = (props) => {
           style={'primary'}
           variant={'raised'}
           size={'lg'}
-          onClick={() => window.open('/checkout', '_self')}
+          onClick={() => router.push('/checkout')}
           disabled={!cart?.cartItems?.length}
         />
       </div>

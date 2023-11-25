@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { Step } from '../Step';
 import clsx from 'clsx';
 import { Button } from '@/core/components/Button';
-import { Radio } from '@mui/material';
+import { FormControlLabel, Radio } from '@mui/material';
 
 type Props = {
   currentStep: number;
@@ -38,25 +38,34 @@ export const PaymentMethodStep: FC<Props> = (props) => {
         {currentStep === STEP_NUMBER && (
           <div className="mt-16">
             <div>
+              {/* $$alex ts */}
               <div>
-                <Radio
-                  checked={paymentOption === 'virement'}
-                  value="virement"
-                  onClick={() => setPaymentOption('virement')}
+                <FormControlLabel
+                  label={<p>Par virement</p>}
+                  control={
+                    <Radio
+                      checked={paymentOption === 'virement'}
+                      value="virement"
+                      onClick={() => setPaymentOption('virement')}
+                    />
+                  }
                 />
-                {/* $$alex ts */}
-                <span>Par virement</span>
               </div>
               <div>
-                <Radio
-                  checked={paymentOption === 'card'}
-                  value="card"
-                  onClick={() => setPaymentOption('card')}
-                />
                 {/* $$alex ts */}
-                <span>Par carte</span>
+                <FormControlLabel
+                  label={<p>Par carte</p>}
+                  control={
+                    <Radio
+                      checked={paymentOption === 'card'}
+                      value="card"
+                      onClick={() => setPaymentOption('card')}
+                    />
+                  }
+                />
               </div>
             </div>
+            {/* $$alex ts */}
             <div className="layout-row layout-align-end-center">
               <Button
                 label="Validate"

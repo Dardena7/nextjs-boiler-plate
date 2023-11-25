@@ -1,17 +1,18 @@
 import { Loader } from '@/core/components/Loader';
-import { User } from '@/core/types/generic';
 import { FC, useState } from 'react';
 import { EditUserInformation } from './EditUserInformation';
 import { ShowUserInformation } from './ShowUserInformation';
 import { useTranslation } from 'next-i18next';
+import { User } from '@/core/types/generic';
 
 type Props = {
   user?: User;
-  isLoadingUser?: boolean;
+  isLoadingUser: boolean;
 };
 
 export const UserInformation: FC<Props> = (props) => {
   const { user, isLoadingUser } = props;
+
   const { t } = useTranslation();
   const [editUser, setEditUser] = useState(false);
 
