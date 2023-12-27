@@ -3,6 +3,18 @@ import camelize from 'camelize-ts';
 import { i18n } from 'next-i18next';
 import snakify from 'snakify-ts';
 import { getAccessToken } from './utils';
+import { CustomError } from '../types/generic';
+
+export const snakifyKeys = (obj: Record<string, any>) => {
+  const snakifiedObj: Record<string, any> = {};
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const snakifiedKey = snakify(key);
+      snakifiedObj[snakifiedKey] = obj[key];
+    }
+  }
+  return snakifiedObj;
+};
 
 // Create new instance and configure
 const axiosInstance = axios.create({
@@ -20,6 +32,7 @@ axiosInstance.interceptors.request.use(
 
     config.headers['Accept-Language'] = i18n?.language;
     config.data = snakify(config.data);
+    if (config.params) config.params = snakify(config.params);
 
     return config;
   },
@@ -36,10 +49,11 @@ axiosInstance.interceptors.response.use(
     response.data = camelize(response.data);
     return response;
   },
-  function (error) {
+  function (error: CustomError<any>) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    throw new Error(error);
+    error.response.data = camelize(error.response.data);
+    throw error;
   }
 );
 

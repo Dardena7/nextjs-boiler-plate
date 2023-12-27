@@ -22,7 +22,8 @@ export const ManageCategory = () => {
 
   const { data: category } = useGetCategory(
     parseInt(categoryId as string),
-    !!categoryId
+    !!categoryId,
+    { showInactiveProducts: true }
   );
   const { mutate: updateCategory } = useUpdateCategory(
     parseInt(categoryId as string)

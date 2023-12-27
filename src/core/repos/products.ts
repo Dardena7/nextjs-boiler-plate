@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { api } from '../api/api';
 import { toast } from '../utils/toasts';
 import { Product } from '@/core/types/generic';
+import { formatUrlParams } from '../utils';
 
 type CreateProductArgs = {
   name: Record<string, string>;
@@ -16,8 +17,16 @@ type UpdateProductArgs = {
   active?: boolean;
 };
 
+type GetProductOptions = {
+  showInactive: boolean;
+};
+
 export const cacheKey = {
-  getProducts: (locale: string) => ['get-products', locale],
+  getProducts: (locale: string, showInactive: boolean) => [
+    'get-products',
+    locale,
+    showInactive,
+  ],
   getProduct: (productId: number, locale: string) => [
     'get-product',
     productId,
@@ -26,7 +35,9 @@ export const cacheKey = {
 };
 
 export const urls = {
-  getProducts: () => '/products',
+  getProducts: () => {
+    return `/products`;
+  },
   getProduct: (productId: number) => `/products/${productId}`,
 };
 
@@ -35,8 +46,10 @@ export const productsRepo = {
     const response = await api.get(urls.getProduct(productId));
     return response.data;
   },
-  getProducts: async (): Promise<Product[]> => {
-    const response = await api.get(urls.getProducts());
+  getProducts: async (options: GetProductOptions): Promise<Product[]> => {
+    const response = await api.get(urls.getProducts(), {
+      params: options,
+    });
     return response.data;
   },
   createProduct: async (args: CreateProductArgs): Promise<Product> => {
@@ -60,13 +73,14 @@ export const productsRepo = {
   },
 };
 
-export const useGetProducts = () => {
-  const queryClient = useQueryClient();
-
-  // Log the entire cache
-  return useQuery(cacheKey.getProducts(i18n?.language || 'en'), () => {
-    return productsRepo.getProducts();
-  });
+export const useGetProducts = (options = { showInactive: false }) => {
+  const { showInactive } = options;
+  return useQuery(
+    cacheKey.getProducts(i18n?.language || 'en', showInactive),
+    () => {
+      return productsRepo.getProducts(options);
+    }
+  );
 };
 
 export const useGetProduct = (productId: number, enabled = false) => {

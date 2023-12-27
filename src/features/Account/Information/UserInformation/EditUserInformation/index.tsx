@@ -79,8 +79,8 @@ export const EditUserInformation: FC<Props> = (props) => {
         />
         <Button
           label={t('common:save')}
-          style="success"
-          variant="light"
+          style="primary"
+          variant="raised"
           size="sm"
           onClick={() => handleUpdateUser()}
           disabled={!formState.isValid || isLoadingUpdateUser}

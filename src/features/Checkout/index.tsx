@@ -1,7 +1,7 @@
 import { Button } from '@/core/components/Button';
 import { Loader } from '@/core/components/Loader';
 import { useUserProfile } from '@/core/hooks/use-user-profile';
-import { Address } from '@/core/types/generic';
+import { Address, CustomError } from '@/core/types/generic';
 import { ArrowBack } from '@mui/icons-material';
 import clsx from 'clsx';
 import { useTranslation } from 'next-i18next';
@@ -41,11 +41,23 @@ export const Checkout: FC<Props> = (props) => {
     const args = {
       cartId: cart.id,
       address: deliveryAddress,
+      email: guestEmail || '',
     };
 
     createOrder(args, {
       onSuccess: (response) => {
         router.push(`/order-confirmation/${response.order.uuid}`);
+      },
+      onError: (error) => {
+        const customError = error as CustomError<{
+          errors: {
+            productInactive: boolean;
+            totalChanged: boolean;
+          };
+        }>;
+        const { productInactive, totalChanged } =
+          customError.response.data.errors;
+        if (productInactive || totalChanged) router.push('/cart');
       },
     });
   };
@@ -95,6 +107,7 @@ export const Checkout: FC<Props> = (props) => {
         {/* STEP 2 */}
         <DeliveryStep
           className="mb-32"
+          user={user}
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           setDeliveryAddress={setDeliveryAddress}
@@ -117,19 +130,22 @@ export const Checkout: FC<Props> = (props) => {
       </div>
 
       <div
-        className="mt-32 px-32 py-16 layout-row layout-align-end-center bg-neutral-100 border-top border-2 border-secondary-300"
+        className="layout-row layout-align-end-center bg-neutral-100 border-top border-2 border-secondary-300"
         style={{ position: 'sticky', bottom: 0, zIndex: 1000 }}
       >
-        {/* $$alex ts */}
-        <Button
-          className="px-32 bold width-100"
-          label={'Proceed to payment'}
-          style={'success'}
-          variant={'light'}
-          size={'lg'}
-          disabled={currentStep !== 5}
-          onClick={handleCreateOrder}
-        />
+        <div className="px-32 py-16 container-lg">
+          {/* $$alex ts */}
+          <Button
+            className="px-32 bold width-100"
+            label={'Proceed to payment'}
+            style={'success'}
+            variant={'light'}
+            size={'lg'}
+            disabled={currentStep !== 5 || isLoadingCreateOrder}
+            onClick={handleCreateOrder}
+            loading={isLoadingCreateOrder}
+          />
+        </div>
       </div>
     </main>
   );

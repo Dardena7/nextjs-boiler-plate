@@ -7,6 +7,7 @@ import { Address, Order } from '@/core/types/generic';
 type CreateOrderArgs = {
   cartId: number;
   address: Partial<Address>;
+  email: string;
 };
 
 const ordersRepo = {

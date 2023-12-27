@@ -10,7 +10,7 @@ import { useUploadFiles } from '@/core/repos/files';
 import { ProductItem } from './ProductItem';
 
 export const ManageProducts = () => {
-  const { data: products } = useGetProducts();
+  const { data: products } = useGetProducts({ showInactive: true });
 
   const { t } = useTranslation();
 

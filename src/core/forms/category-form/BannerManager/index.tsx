@@ -18,7 +18,8 @@ export const BannerManager: FC<Props> = (props) => {
 
   const { data: category } = useGetCategory(
     parseInt(categoryId as string),
-    !!categoryId
+    !!categoryId,
+    { showInactiveProducts: true }
   );
 
   const banner = category?.images?.[0];

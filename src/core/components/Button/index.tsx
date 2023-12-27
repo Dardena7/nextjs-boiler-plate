@@ -1,12 +1,12 @@
-import { getStylesCSSClasses } from "@/core/utils";
-import clsx from "clsx";
-import { FC, ReactElement } from "react";
-import { Loader } from "../Loader";
-import styles from "./Button.module.css";
+import { getStylesCSSClasses } from '@/core/utils';
+import clsx from 'clsx';
+import { FC, ReactElement } from 'react';
+import { Loader } from '../Loader';
+import styles from './Button.module.css';
 
-type ButtonStyle = "primary" | "secondary" | "success" | "danger";
-type ButtonVariant = "raised" | "outlined" | "light";
-type ButtonSize = "xs" | "sm" | "md" | "lg";
+type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger';
+type ButtonVariant = 'raised' | 'outlined' | 'light';
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 type Props = {
   label: string | ReactElement;
@@ -26,14 +26,14 @@ const getCSSClasses = (
   disabled?: boolean,
   loading?: boolean
 ) => {
-  let classNames = ["btn", `btn-${size}`];
-  if (loading) classNames = [...classNames, "btn-loading"];
+  let classNames = ['btn', `btn-${size}`];
+  if (loading) classNames = [...classNames, 'btn-loading'];
   if (!disabled)
     classNames = [
       ...classNames,
       `btn-${style}`,
       `btn-${variant}`,
-      "btn-ripple",
+      'btn-ripple',
     ];
   return getStylesCSSClasses(classNames, styles);
 };
@@ -50,12 +50,12 @@ export const Button: FC<Props> = (props) => {
       className={clsx(
         getCSSClasses(style, variant, size, disabled, loading),
         className,
-        "medium"
+        'medium'
       )}
-      style={{ position: "relative" }}
+      style={{ position: 'relative' }}
     >
       <span>{label}</span>
-      {loading && <Loader size="sm" />}
+      {loading && <Loader absolute={true} size="sm" />}
     </button>
   );
 };

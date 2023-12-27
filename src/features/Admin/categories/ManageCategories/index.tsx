@@ -2,9 +2,7 @@ import {
   useCreateCategory,
   useGetCategories,
   useMoveCategory,
-  useUpdateCategory,
 } from '@/core/repos/categories';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,7 +20,7 @@ import { useUploadFiles } from '@/core/repos/files';
 import { toast } from '@/core/utils/toasts';
 
 export const ManageCategories = () => {
-  const { data: categories } = useGetCategories();
+  const { data: categories } = useGetCategories({ showInactive: true });
 
   const { t } = useTranslation();
 

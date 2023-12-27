@@ -3,6 +3,7 @@ import { User } from '@/core/types/generic';
 import clsx from 'clsx';
 import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
+import { Edit } from '@mui/icons-material';
 
 type Props = {
   user: User;
@@ -17,11 +18,11 @@ export const ShowUserInformation: FC<Props> = (props) => {
   return (
     <div className={clsx(className)}>
       <div>
-        <div className="text-secondary-700 mb-16">
+        <div className="text-secondary-700 mb-8">
           <p className="bold mb-4">{t('pages:account.firstname')}</p>
           <p>{user?.firstname || '-'}</p>
         </div>
-        <div className="text-secondary-700 mb-16">
+        <div className="text-secondary-700 mb-8">
           <p className="bold mb-4">{t('pages:account.lastname')}</p>
           <p>{user?.lastname || '-'}</p>
         </div>
@@ -30,11 +31,17 @@ export const ShowUserInformation: FC<Props> = (props) => {
           <p>{user?.email}</p>
         </div>
       </div>
-      <div className="mt-32 layout-row layout-align-end">
+      <div className="mt-16 layout-row layout-align-end">
         <Button
-          label={t('pages:account.editMyInfo')}
+          label={
+            <div className="layout-row layout-align-start-center">
+              <Edit fontSize="small" />
+              {/* $$alex trans */}
+              <span className="ml-8">{t('pages:account.editMyInfo')}</span>
+            </div>
+          }
           style="primary"
-          variant="raised"
+          variant="outlined"
           size="sm"
           onClick={() => {
             setEditUser(true);

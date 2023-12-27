@@ -11,3 +11,9 @@ export const priceFormatter = new Intl.NumberFormat('fr-FR', {
   currency: 'EUR',
   minimumFractionDigits: 2,
 });
+
+export const formatUrlParams = (options: Record<string, any>) => {
+  return Object.entries(options)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
+};

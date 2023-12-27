@@ -56,11 +56,14 @@ export const CartSummary: FC<Props> = (props) => {
             cartItems.map((cartItem) => {
               const { product, quantity, total } = cartItem;
 
-              const { id: productId, price: unitPrice } = product;
+              const { id: productId, price: unitPrice, active } = product;
 
               return (
                 <div
-                  className="layout-row layout-align-space-between-center border-bottom border-secondary-300"
+                  className={clsx(
+                    !active && 'bg-danger-200',
+                    'layout-row layout-align-space-between-center border-bottom border-secondary-300'
+                  )}
                   key={productId}
                 >
                   <div className="p-32 layout-row layout-align-start-center bold width-40 border-right border-secondary-300">
@@ -71,6 +74,12 @@ export const CartSummary: FC<Props> = (props) => {
                       <CancelTwoTone className="text-danger-500 mr-16" />
                     </div>
                     <div>{product.name}</div>
+                    {!active && (
+                      // $$alex ts
+                      <div className="ml-8 small text-secondary-500">
+                        (Inactive)
+                      </div>
+                    )}
                   </div>
                   <div className="p-32 medium text-center width-20 border-right border-secondary-300">
                     {priceFormatter.format(parseFloat(unitPrice))}

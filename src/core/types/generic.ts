@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 export type Translation = Record<string, string>;
 export type FileData = { id: number; url: string };
 
@@ -14,6 +12,7 @@ export type User = {
   updatedAt: string;
   auth0Id: string;
   termsAndConditions: boolean;
+  addresses: Address[];
 };
 
 export type Category = {
@@ -74,6 +73,13 @@ export type Order = {
   uuid: string;
   createdAt: string;
   address: Address;
+  email: string;
   orderItems: OrderItem[];
   total: string;
+};
+
+export type CustomError<T> = {
+  response: {
+    data: T;
+  };
 };

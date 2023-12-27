@@ -12,11 +12,12 @@ import { Address } from '@/core/types/generic';
 type Props = {
   className?: string;
   address?: Partial<Address>;
+  isLoading?: boolean;
   onValidate: (address: Partial<Address>) => void;
 };
 
 export const AddressForm: FC<Props> = (props) => {
-  const { className, address, onValidate } = props;
+  const { className, address, onValidate, isLoading } = props;
 
   const { ...methods } = useForm<AddressFormType>({
     mode: 'onChange',
@@ -31,34 +32,38 @@ export const AddressForm: FC<Props> = (props) => {
     <div className={clsx(className)} data-testid="address-form">
       <FormProvider {...methods}>
         {/* $$alex ts */}
-
         <TextInput
           name="completeName"
           label="Complete name (firstname and lastname)"
           className="mb-16"
         />
-        {/* $$alex ts */}
 
+        {/* $$alex ts */}
         <TextInput name="country" label="Country" className="mb-16" />
-        {/* $$alex ts */}
 
+        <div className="layout-row layout-align-start-center">
+          {/* $$alex ts */}
+          <TextInput
+            name="city"
+            label="City"
+            className="mb-16 mr-16 width-60"
+          />
+          {/* $$alex ts */}
+          <TextInput name="zip" label="Zip" className="mb-16 width-40" />
+        </div>
+
+        {/* $$alex ts */}
         <TextInput name="street" label="Street" className="mb-16" />
-        {/* $$alex ts */}
-
-        <TextInput name="city" label="City" className="mb-16" />
-        {/* $$alex ts */}
-
-        <TextInput name="zip" label="Zip" className="mb-16" />
 
         <div className="layout-row layout-align-end-center">
           {/* $$alex ts */}
-
           <Button
             label={'Valider'}
             style={'primary'}
             variant={'raised'}
             size={'md'}
-            disabled={!isValid}
+            disabled={!isValid || isLoading}
+            loading={isLoading}
             onClick={() => onValidate(methods.getValues())}
           />
         </div>

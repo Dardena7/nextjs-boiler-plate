@@ -12,7 +12,7 @@ export const AdminNavigation = () => {
 
   return (
     <nav
-      className="p-16 layout-row layout-align-space-between border-bottom border-2 border-secondary-300 text-secondary-900"
+      className="p-16 layout-row layout-align-space-between bg-neutral-100 border-bottom border-2 border-secondary-300 text-secondary-900"
       style={{ position: 'sticky', top: 0, zIndex: 1000 }}
     >
       <ul className="layout-row layout-align-start-center">

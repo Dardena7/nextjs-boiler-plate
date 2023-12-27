@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { api } from '../api/api';
 import { toast } from '../utils/toasts';
 import { Category } from '@/core/types/generic';
+import { type } from 'os';
 
 type CreateCategoryArgs = {
   name: Record<string, string>;
@@ -24,13 +25,26 @@ type MoveCategoryArgs = {
   position: number;
 };
 
+type GetCategoryOptions = {
+  showInactiveProducts: boolean;
+};
+
+type GetCategoriesOptions = {
+  showInactive: boolean;
+};
+
 const categoriesRepo = {
-  getCategory: async (categoryId: number): Promise<Category> => {
-    const response = await api.get(`/categories/${categoryId}`);
+  getCategory: async (
+    categoryId: number,
+    options: GetCategoryOptions
+  ): Promise<Category> => {
+    const response = await api.get(`/categories/${categoryId}`, {
+      params: options,
+    });
     return response.data;
   },
-  getCategories: async (): Promise<Category[]> => {
-    const response = await api.get('/categories');
+  getCategories: async (options: GetCategoriesOptions): Promise<Category[]> => {
+    const response = await api.get('/categories', { params: options });
     return response.data;
   },
   createCategory: async (args: CreateCategoryArgs): Promise<Category> => {
@@ -74,17 +88,23 @@ const categoriesRepo = {
   },
 };
 
-export const useGetCategories = () => {
-  return useQuery(['get-categories', i18n?.language], () => {
-    return categoriesRepo.getCategories();
+export const useGetCategories = (options = { showInactive: false }) => {
+  const { showInactive } = options;
+  return useQuery(['get-categories', i18n?.language, showInactive], () => {
+    return categoriesRepo.getCategories(options);
   });
 };
 
-export const useGetCategory = (categoryId: number, enabled = false) => {
+export const useGetCategory = (
+  categoryId: number,
+  enabled = false,
+  options: GetCategoryOptions = { showInactiveProducts: false }
+) => {
+  const { showInactiveProducts } = options;
   return useQuery(
-    ['get-category', categoryId, i18n?.language],
+    ['get-category', categoryId, i18n?.language, showInactiveProducts],
     () => {
-      return categoriesRepo.getCategory(categoryId);
+      return categoriesRepo.getCategory(categoryId, options);
     },
     { enabled }
   );

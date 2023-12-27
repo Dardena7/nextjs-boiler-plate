@@ -19,6 +19,9 @@ export const Cart: FC<Props> = (props) => {
   const router = useRouter();
 
   const { data: cart, isLoading } = useGetCart();
+  const { cartItems } = cart || {};
+
+  const hasProductInactive = cartItems?.some((item) => !item.product.active);
 
   const { mutate: updateQuantity, isLoading: isLoadingUpdateQuantity } =
     useUpdateQuantity();
@@ -35,7 +38,7 @@ export const Cart: FC<Props> = (props) => {
 
   if (isLoading)
     return (
-      <div className="py-32 px-32 container-lg border-secondary-300 height-100">
+      <div className="p-32 container-lg border-secondary-300 height-100">
         <Loader size={'md'} />
       </div>
     );
@@ -57,19 +60,21 @@ export const Cart: FC<Props> = (props) => {
         )}
       </div>
       <div
-        className="px-32 py-16 layout-row layout-align-end-center bg-neutral-100 border-top border-2 border-secondary-300"
+        className="bg-neutral-100 border-top border-2 border-secondary-300"
         style={{ position: 'sticky', bottom: 0, zIndex: 1000 }}
       >
-        {/* $$alex ts */}
-        <Button
-          className="px-32 width-100"
-          label={'Place the order'}
-          style={'primary'}
-          variant={'raised'}
-          size={'lg'}
-          onClick={() => router.push('/checkout')}
-          disabled={!cart?.cartItems?.length}
-        />
+        <div className="px-32 py-16 container-lg">
+          {/* $$alex ts */}
+          <Button
+            className="px-32 width-100"
+            label={'Place the order'}
+            style={'primary'}
+            variant={'raised'}
+            size={'lg'}
+            onClick={() => router.push('/checkout')}
+            disabled={!cart?.cartItems?.length || hasProductInactive}
+          />
+        </div>
       </div>
     </main>
   );
