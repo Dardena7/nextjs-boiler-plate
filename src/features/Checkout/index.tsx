@@ -42,6 +42,7 @@ export const Checkout: FC<Props> = (props) => {
       cartId: cart.id,
       address: deliveryAddress,
       email: guestEmail || '',
+      total: cart.total,
     };
 
     createOrder(args, {

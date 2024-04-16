@@ -8,6 +8,7 @@ type CreateOrderArgs = {
   cartId: number;
   address: Partial<Address>;
   email: string;
+  total: string;
 };
 
 const ordersRepo = {
