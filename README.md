@@ -1,38 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#README
 
-## Getting Started
+Nextjs app boiler plate for an online shop.
 
-First, run the development server:
+## Auth0 initialization
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+1. Follow the readme of the API boiler plate to create and auth0 account and setup the regular web application app.
+
+2. Create a machine to machine application that will be used to handle "Auth0 Management API"
+
+3. In the "Auth0 Management API", go to "M2M applications" and authorize the m2m application, also tick every permissions needed (ex: crud for roles and users)
+
+## Create an env.local file
+
 ```
+AUTH0_SECRET=<AUTH0_SECRET> Generated with command: "openssl rand -hex 32"
+AUTH0_BASE_URL=<AUTH0_BASE_URL> From Regular web app
+AUTH0_ISSUER_BASE_URL=<AUTH0_ISSUER_BASE_URL> From Regular web app (tenant)
+AUTH0_CLIENT_ID=<AUTH0_CLIENT_ID> From Regular web app
+AUTH0_CLIENT_SECRET=<AUTH0_CLIENT_SECRET> From Regular web app
+AUTH0_AUDIENCE=<AUTH0_AUDIENCE> From the API application
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+MANAGEMENT_TOKEN_URL=<MANAGEMENT_TOKEN_URL> AUTH0_BASE_URL/oauth/token
+MANAGEMENT_AUDIENCE=<MANAGEMENT_AUDIENCE> AUTH0_BASE_URL/api/v2
+MANAGEMENT_CLIENT_ID=<MANAGEMENT_CLIENT_ID> From m2m app
+MANAGEMENT_CLIENT_SECRET=<MANAGEMENT_CLIENT_SECRET> From m2m app
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXT_PUBLIC_API_BASE_URL=<NEXT_PUBLIC_API_BASE_URL> URL of the API
+NEXT_PUBLIC_MANAGEMENT_API_BASE_URL=<NEXT_PUBLIC_MANAGEMENT_API_BASE_URL> AUTH0_BASE_URL/api/v2
+```
