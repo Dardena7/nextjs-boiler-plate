@@ -44,6 +44,7 @@ export const Button: FC<Props> = (props) => {
 
   return (
     <button
+      data-testid="button-component"
       type="button"
       onClick={onClick}
       disabled={disabled}
