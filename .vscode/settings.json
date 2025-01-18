@@ -1,4 +1,6 @@
 {
   "editor.formatOnSave": true,
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "jestrunner.jestPath": "node_modules/.bin/jest",
+  "jestrunner.codeLensSelector": "**/*{.test,.spec,tests}.{js,jsx,ts,tsx}"
 }
